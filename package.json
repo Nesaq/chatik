@@ -1,0 +1,25 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "[![Actions Status](https://github.com/Nesaq/frontend-project-lvl4/workflows/hexlet-check/badge.svg)](https://github.com/Nesaq/frontend-project-lvl4/actions)",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "npm run build --prefix frontend",
+    "start": "start-server -s ./frontend/build",
+    "postinstall": "cd frontend && npm ci",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nesaq/frontend-project-lvl4.git"
+  },
+  "author": "Kholik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nesaq/frontend-project-lvl4/issues"
+  },
+  "homepage": "https://github.com/Nesaq/frontend-project-lvl4#readme",
+  "dependencies": {
+    "@hexlet/chat-server": "^1.1.6"
+  }
+}
