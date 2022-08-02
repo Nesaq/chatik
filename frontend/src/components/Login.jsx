@@ -1,19 +1,20 @@
 import axios from 'axios';
 import React, { useRef, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import * as Yup from 'yup';
-// import useAuth from '../hooks/index.js';
+import useAuth from '../hooks/index.js';
 import routes from '../routes.js';
 
-const schemaLogin = Yup.object({
+const schemaLogin = Yup.object().shape({
   username: Yup.string().required(),
   password: Yup.string().required(),
 });
 
 const Login = () => {
-  // const auth = useAuth();
+  const auth = useAuth();
+  const location = useLocation();
   const inputRef = useRef();
   const navigate = useNavigate();
   const [authFailed, setAuthFailed] = useState(false);
@@ -29,12 +30,20 @@ const Login = () => {
     },
     schemaLogin,
     onSubmit: async (values) => {
+      console.log(values);
       try {
+        // localStorage.setItem('user', JSON.stringify({ key: '123' }));
+
         const response = await axios.post(routes.loginPath(), values);
-        localStorage.setItem('userId', JSON.stringify(response.data));
-        // auth.logIn();
-        setAuthFailed(false);
-        navigate('/');
+        // console.log(response);
+        // auth.logIn(response.data);
+        localStorage.setItem('user', JSON.stringify(response.data));
+        // setAuthFailed(false);
+        auth.logIn();
+        const { from } = location.state || { from: { pathname: '/' } };
+        console.log(from);
+        navigate(from);
+        // console.log(from);
       } catch (err) {
         if (err.isAxiosError && err.response.status === 401) {
           setAuthFailed(true);
@@ -59,6 +68,7 @@ const Login = () => {
               <Form onSubmit={formik.handleSubmit}>
                 <h1 className='class="text-center mb-4'>Войти</h1>
                 <Form.Group className='form-floating mb-3'>
+                <Form.Label htmlFor='username'>Ваш ник</Form.Label>
                   <Form.Control
                   name='username'
                   ref={inputRef}
@@ -70,7 +80,6 @@ const Login = () => {
                   autoComplete='username'
                   required
                   />
-                  <Form.Label htmlFor='username'>Ваш ник</Form.Label>
                   </Form.Group>
                   <Form.Group className='form-floating mb-4'>
                     <Form.Control
