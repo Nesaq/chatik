@@ -18,23 +18,25 @@ import useAuth from '../hooks/index.js';
 const AuthProvider = ({ children }) => {
   // console.log(children);
   const currentUser = JSON.parse(localStorage.getItem('user'));
-  // console.log(currentUser);
+  console.log('currentUser', currentUser);
 
   // const [loggedIn, setLoggedIn] = useState(false);
   // eslint-disable-next-line max-len
   const [loggedIn, setLoggedIn] = useState(currentUser ? { username: currentUser.username } : null);
 
-  // console.log(loggedIn);
+  console.log('loggedIn', loggedIn);
+  // console.log('setLoggedIn', setLoggedIn);
 
   // const logIn = () => setLoggedIn(true);
 
   const logIn = (data) => {
-    localStorage.setItem('userId', JSON.stringify(data));
+    console.log('logIN DATA', data);
+    localStorage.setItem('user', JSON.stringify(data));
     setLoggedIn({ username: data.username });
   };
 
   const logOut = () => {
-    localStorage.removeItem('userId');
+    localStorage.removeItem('user');
     setLoggedIn(false);
   };
 
@@ -54,17 +56,6 @@ const PrivateRoute = ({ children }) => {
     auth.loggedIn ? children : <Navigate to="/login" state={{ from: location }} />
   );
 };
-
-// const AuthButton = () => {
-//   const auth = useAuth();
-//   const location = useLocation();
-
-//   return (
-//     auth.loggedIn
-//       ? <Button onClick={auth.logOut}>Log out</Button>
-//       : <Button as={Link} to="/login" state={{ from: location }}>Log in</Button>
-//   );
-// };
 
 const App = () => (
   <AuthProvider>

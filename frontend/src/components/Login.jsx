@@ -30,15 +30,15 @@ const Login = () => {
     },
     schemaLogin,
     onSubmit: async (values) => {
-      console.log(values);
+      console.log('values', values);
       try {
         const response = await axios.post(routes.loginPath(), values);
-        // console.log(response);
+        console.log('response', response.data);
         auth.logIn(response.data);
         // localStorage.setItem('user', JSON.stringify(response.data));
         // auth.logIn();
         const { from } = location.state || { from: { pathname: '/' } };
-        console.log(from);
+        console.log('from', from);
         navigate(from);
         // console.log(from);
       } catch (err) {
