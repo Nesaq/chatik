@@ -34,10 +34,9 @@ const Login = () => {
       try {
         const response = await axios.post(routes.loginPath(), values);
         // console.log(response);
-        // auth.logIn(response.data);
-        localStorage.setItem('userId', JSON.stringify(response.data));
-        // setAuthFailed(false);
-        auth.logIn();
+        auth.logIn(response.data);
+        // localStorage.setItem('user', JSON.stringify(response.data));
+        // auth.logIn();
         const { from } = location.state || { from: { pathname: '/' } };
         console.log(from);
         navigate(from);

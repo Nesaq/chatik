@@ -17,14 +17,21 @@ import useAuth from '../hooks/index.js';
 // eslint-disable-next-line react/prop-types
 const AuthProvider = ({ children }) => {
   // console.log(children);
-
-  const currentUser = JSON.parse(localStorage.getItem('userId'));
-  console.log(currentUser);
+  const currentUser = JSON.parse(localStorage.getItem('user'));
+  // console.log(currentUser);
 
   // const [loggedIn, setLoggedIn] = useState(false);
+  // eslint-disable-next-line max-len
   const [loggedIn, setLoggedIn] = useState(currentUser ? { username: currentUser.username } : null);
 
-  const logIn = () => setLoggedIn(true);
+  // console.log(loggedIn);
+
+  // const logIn = () => setLoggedIn(true);
+
+  const logIn = (data) => {
+    localStorage.setItem('userId', JSON.stringify(data));
+    setLoggedIn({ username: data.username });
+  };
 
   const logOut = () => {
     localStorage.removeItem('userId');
