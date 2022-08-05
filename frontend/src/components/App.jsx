@@ -8,6 +8,7 @@ import {
   useLocation,
 
 } from 'react-router-dom';
+// import { Button } from 'react-bootstrap';
 import NotFoundPage from './NotFoundPage.jsx';
 import Login from './Login.jsx';
 import AuthContext from '../context/index.js';
@@ -15,12 +16,16 @@ import useAuth from '../hooks/index.js';
 
 // eslint-disable-next-line react/prop-types
 const AuthProvider = ({ children }) => {
-  const currentUser = JSON.parse(localStorage.getItem('user'));
+  // console.log(children);
 
+  const currentUser = JSON.parse(localStorage.getItem('userId'));
   console.log(currentUser);
-  const [loggedIn, setLoggedIn] = useState(false);
+
+  // const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(currentUser ? { username: currentUser.username } : null);
 
   const logIn = () => setLoggedIn(true);
+
   const logOut = () => {
     localStorage.removeItem('userId');
     setLoggedIn(false);
@@ -42,6 +47,17 @@ const PrivateRoute = ({ children }) => {
     auth.loggedIn ? children : <Navigate to="/login" state={{ from: location }} />
   );
 };
+
+// const AuthButton = () => {
+//   const auth = useAuth();
+//   const location = useLocation();
+
+//   return (
+//     auth.loggedIn
+//       ? <Button onClick={auth.logOut}>Log out</Button>
+//       : <Button as={Link} to="/login" state={{ from: location }}>Log in</Button>
+//   );
+// };
 
 const App = () => (
   <AuthProvider>

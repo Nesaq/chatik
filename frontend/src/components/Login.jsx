@@ -32,12 +32,10 @@ const Login = () => {
     onSubmit: async (values) => {
       console.log(values);
       try {
-        // localStorage.setItem('user', JSON.stringify({ key: '123' }));
-
         const response = await axios.post(routes.loginPath(), values);
         // console.log(response);
         // auth.logIn(response.data);
-        localStorage.setItem('user', JSON.stringify(response.data));
+        localStorage.setItem('userId', JSON.stringify(response.data));
         // setAuthFailed(false);
         auth.logIn();
         const { from } = location.state || { from: { pathname: '/' } };
@@ -68,7 +66,6 @@ const Login = () => {
               <Form onSubmit={formik.handleSubmit}>
                 <h1 className='class="text-center mb-4'>Войти</h1>
                 <Form.Group className='form-floating mb-3'>
-                <Form.Label htmlFor='username'>Ваш ник</Form.Label>
                   <Form.Control
                   name='username'
                   ref={inputRef}
@@ -80,6 +77,7 @@ const Login = () => {
                   autoComplete='username'
                   required
                   />
+                 <Form.Label htmlFor='username'>Ваш ник</Form.Label>
                   </Form.Group>
                   <Form.Group className='form-floating mb-4'>
                     <Form.Control
