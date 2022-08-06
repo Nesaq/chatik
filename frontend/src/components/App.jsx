@@ -13,11 +13,11 @@ import NotFoundPage from './NotFoundPage.jsx';
 import Login from './Login.jsx';
 import AuthContext from '../context/index.js';
 import useAuth from '../hooks/index.js';
-
+import Chat from './Chat.jsx';
 // eslint-disable-next-line react/prop-types
 const AuthProvider = ({ children }) => {
   // console.log(children);
-  const currentUser = JSON.parse(localStorage.getItem('user'));
+  const currentUser = JSON.parse(localStorage.getItem('userId'));
   console.log('currentUser', currentUser);
 
   // const [loggedIn, setLoggedIn] = useState(false);
@@ -28,20 +28,31 @@ const AuthProvider = ({ children }) => {
   // console.log('setLoggedIn', setLoggedIn);
 
   // const logIn = () => setLoggedIn(true);
+  const getAuthHeader = () => {
+    const user = JSON.parse(localStorage.getItem('userId'));
+    console.log('USERID', user);
+    if (user && user.token) {
+      console.log('AUTH', user.token);
+      return { Authorization: `Bearer ${user.token}` };
+    }
+    return {};
+  };
 
   const logIn = (data) => {
     console.log('logIN DATA', data);
-    localStorage.setItem('user', JSON.stringify(data));
+    localStorage.setItem('userId', JSON.stringify(data));
     setLoggedIn({ username: data.username });
   };
 
   const logOut = () => {
-    localStorage.removeItem('user');
+    localStorage.removeItem('userId');
     setLoggedIn(false);
   };
 
   return (
-    <AuthContext.Provider value={{ loggedIn, logIn, logOut }}>
+    <AuthContext.Provider value={{
+      loggedIn, logIn, logOut, getAuthHeader,
+    }}>
       {children}
     </AuthContext.Provider>
   );
@@ -67,7 +78,7 @@ const App = () => (
           </div>
         </nav>
         <Routes>
-          <Route path='/' element={<PrivateRoute>{null}</PrivateRoute>} />
+          <Route path='/' element={<PrivateRoute>< Chat /></PrivateRoute>} />
           <Route path='/login' element={<Login />} />
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
