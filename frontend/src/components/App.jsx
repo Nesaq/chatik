@@ -1,4 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
+// import Container from 'react-bootstrap/Container';
+// import Navbar from 'react-bootstrap/Navbar';
 import React, { useState } from 'react';
 import {
   BrowserRouter as Router,
@@ -14,6 +16,7 @@ import Login from './Login.jsx';
 import AuthContext from '../context/index.js';
 import useAuth from '../hooks/index.js';
 import Chat from './Chat.jsx';
+import NavBar from './Nav.jsx';
 // eslint-disable-next-line react/prop-types
 const AuthProvider = ({ children }) => {
   // console.log(children);
@@ -32,7 +35,7 @@ const AuthProvider = ({ children }) => {
     const user = JSON.parse(localStorage.getItem('userId'));
     console.log('USERID', user);
     if (user && user.token) {
-      console.log('AUTH', user.token);
+      console.log('TOKEN', user.token);
       return { Authorization: `Bearer ${user.token}` };
     }
     return {};
@@ -68,23 +71,38 @@ const PrivateRoute = ({ children }) => {
   );
 };
 
+// const App = () => (
+//   <AuthProvider>
+//     <Router>
+//       <div className="d-flex flex-column h-100">
+//         <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
+//           <div className="container">
+//             <a href="/" className="navbar-brand">Chat</a>
+//           </div>
+//         </nav>
+//         <Routes>
+//           <Route path='/' element={<PrivateRoute>< Chat /></PrivateRoute>} />
+//           <Route path='/login' element={<Login />} />
+//           <Route path='*' element={<NotFoundPage />} />
+//         </Routes>
+//       </div>
+//     </Router>
+//    </AuthProvider>
+// );
+
 const App = () => (
   <AuthProvider>
     <Router>
-      <div className="d-flex flex-column h-100">
-        <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
-          <div className="container">
-            <a href="/" className="navbar-brand">Chat</a>
-          </div>
-        </nav>
-        <Routes>
-          <Route path='/' element={<PrivateRoute>< Chat /></PrivateRoute>} />
+    <div className="d-flex flex-column h-100">
+      <NavBar />
+    <Routes>
+         <Route path='/' element={<PrivateRoute>< Chat /></PrivateRoute>} />
           <Route path='/login' element={<Login />} />
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
-      </div>
+    </div>
     </Router>
-   </AuthProvider>
+  </AuthProvider>
 );
 
 export default App;

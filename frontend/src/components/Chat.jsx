@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
+import { Container, Row } from 'react-bootstrap';
 // import { Form, Button } from 'react-bootstrap';
 // import { useFormik } from 'formik';
 // import { useDispatch } from 'redux-toolkit';
@@ -11,15 +12,19 @@ const Chat = () => {
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await axios.get(routes.dataPath(), { headers: auth.getAuthHeader() });
-      console.log(data);
+      //   console.log(data);
+      return data;
     };
     fetchData();
   }, []);
 
   return (
-        <div>
-            Chat General
-        </div>
+        <Container className='h-100 my-4 overflow-hidden rounded shadow'>
+            <Row className='h-100 bg-white'>
+           <p>Каналы</p>
+           <p>Сообщения</p>
+            </Row>
+        </Container>
   );
 };
 
