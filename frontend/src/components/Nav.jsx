@@ -6,7 +6,7 @@ const NavBar = () => {
   const auth = useAuth();
 
   return (
-        <Navbar className='shadow-sm' bg='white'>
+        <Navbar className='shadow-sm' bg='white' expand='lg'>
             <Container>
                 <Navbar.Brand href='/'>Chat</Navbar.Brand>
                 { auth.loggedIn ? <Button variant="primary" onClick={auth.logOut}>Выход</Button> : null }
