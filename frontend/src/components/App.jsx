@@ -19,7 +19,6 @@ import AuthContext from '../context/index.js';
 import useAuth from '../hooks/index.js';
 import Chat from './Chat.jsx';
 import NavBar from './Nav.jsx';
-// import useSocket from '../hooks/useSocket.js';
 
 // eslint-disable-next-line react/prop-types
 const AuthProvider = ({ children }) => {
@@ -62,8 +61,10 @@ const SocketIoProvider = ({ children }) => {
   const dispatch = useDispatch();
   const socket = io();
 
-  const addMessage = (message) => {
-    socket.emit('newMessage', message);
+  const addMessage = (message, connectionStatus) => {
+    socket.emit('newMessage', message, (response) => {
+      connectionStatus(response);
+    });
   };
 
   useEffect(() => {

@@ -14,9 +14,9 @@ const Channels = () => {
   const channels = useSelector(channelsSelectors.selectAll);
   //  {id: 1, name: 'general', removable: false}
   //  {id: 2, name: 'random', removable: false}
-  console.log('channels', channels);
+  // console.log('channels', channels);
   const currentChannelId = useSelector((state) => state.channelsReducer.currentChannelId);
-  console.log('currentChannelId', currentChannelId); // Number 1
+  // console.log('currentChannelId', currentChannelId); // Number 1
 
   const channelsRender = () => {
     const handleClick = (id) => {

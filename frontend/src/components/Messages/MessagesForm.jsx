@@ -19,13 +19,20 @@ const MessagesForm = () => {
   console.log('username', username);
   console.log('channelId', channelId);
 
-  //   const [message, setMessage] = useState('');
   const inputRef = useRef();
   const { addMessage } = useSocket();
 
   useEffect(() => {
     inputRef.current.focus();
   });
+
+  const responseCheck = (response) => {
+    if (response.status === 'ok') {
+      console.log('good connection');
+    } else {
+      console.log('Bad response');
+    }
+  };
 
   const formik = useFormik({
     initialValues: { body: '' },
@@ -38,7 +45,7 @@ const MessagesForm = () => {
         channelId,
         username,
       };
-      addMessage(data);
+      addMessage(data, responseCheck);
       formik.resetForm();
     },
   });
