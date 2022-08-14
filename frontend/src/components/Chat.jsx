@@ -1,19 +1,26 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { Container, Row } from 'react-bootstrap';
-// import { Form, Button } from 'react-bootstrap';
-// import { useFormik } from 'formik';
-// import { useDispatch } from 'redux-toolkit';
+import { useDispatch } from 'react-redux';
 import useAuth from '../hooks/index.js';
 import routes from '../routes.js';
+import Channels from './Channels.jsx';
+import Messages from './Messages/Messages.jsx';
+import { actions as channelsActions } from '../store/channelsSlice.js';
+import { actions as messagesActions } from '../store/messagesSlice.js';
 
 const Chat = () => {
   const auth = useAuth();
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await axios.get(routes.dataPath(), { headers: auth.getAuthHeader() });
-      //   console.log(data);
-      return data;
+      console.log(data); // channels, currentChannelId, messages
+      const { channels, currentChannelId, messages } = data;
+      dispatch(channelsActions.addChannels(channels));
+      dispatch(channelsActions.setCurrentChannelId(currentChannelId));
+      dispatch(messagesActions.addMessages(messages));
     };
     fetchData();
   }, []);
@@ -21,15 +28,11 @@ const Chat = () => {
   return (
         <Container className='h-100 my-4 overflow-hidden rounded shadow'>
             <Row className='h-100 bg-white'>
-           <p>Каналы</p>
-           <p>Сообщения</p>
+              <Channels />
+              <Messages />
             </Row>
         </Container>
   );
 };
 
 export default Chat;
-// Реализуйте получение данных с сервера при открытии с
-// траницы с чатом авторизованным пользователем.
-// Интерфейс обработчика запроса смотрите в файле routes.js
-// серверной части.
