@@ -10,9 +10,9 @@ import {
 } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { io } from 'socket.io-client';
-import { actions } from '../store/messagesSlice.js';
+import { actions as messagesActions } from '../store/messagesSlice.js';
+import { actions as channelsActions } from '../store/channelsSlice.js';
 import ApiContext from '../context/apiContext.js';
-// import { Button } from 'react-bootstrap';
 import NotFoundPage from './NotFoundPage.jsx';
 import Login from './Login.jsx';
 import AuthContext from '../context/index.js';
@@ -67,14 +67,30 @@ const SocketIoProvider = ({ children }) => {
     });
   };
 
+  const addChannel = (channel) => {
+    socket.emit('newChannel', channel, (response) => {
+      if (response.status === 'ok') {
+        const { id } = response.data;
+        console.log('EMMIT ID', id);
+        dispatch(channelsActions.setCurrentChannelId(id));
+      } else {
+        console.log(`${response.status} bad connection`);
+      }
+    });
+  };
+
   useEffect(() => {
     socket.on('newMessage', (message) => {
-      dispatch(actions.addMessage(message));
+      dispatch(messagesActions.addMessage(message));
+    });
+
+    socket.on('newChannel', (channel) => {
+      dispatch(channelsActions.addChannel(channel));
     });
   }, []);
 
   return (
-    <ApiContext.Provider value={{ addMessage }}>
+    <ApiContext.Provider value={{ addMessage, addChannel }}>
       { children }
     </ApiContext.Provider>
   );

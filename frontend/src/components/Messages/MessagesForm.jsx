@@ -16,8 +16,8 @@ const validationMessagesForm = yup.object().shape({
 const MessagesForm = () => {
   const channelId = useSelector((state) => state.channelsReducer.currentChannelId);
   const { username } = JSON.parse(localStorage.getItem('userId'));
-  console.log('username', username);
-  console.log('channelId', channelId);
+  // console.log('username', username);
+  // console.log('channelId', channelId);
 
   const inputRef = useRef();
   const { addMessage } = useSocket();

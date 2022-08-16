@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable import/no-duplicates */
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,15 +9,15 @@ import {
 } from 'react-bootstrap';
 import { selectors as channelsSelectors } from '../store/channelsSlice.js';
 import { actions as channelsActions } from '../store/channelsSlice.js';
+// import getModal from './Modals/index.js';
 
-const Channels = () => {
+const Channels = (props) => {
+  const { showModal } = props;
   const dispatch = useDispatch();
   const channels = useSelector(channelsSelectors.selectAll);
   //  {id: 1, name: 'general', removable: false}
   //  {id: 2, name: 'random', removable: false}
-  // console.log('channels', channels);
   const currentChannelId = useSelector((state) => state.channelsReducer.currentChannelId);
-  // console.log('currentChannelId', currentChannelId); // Number 1
 
   const channelsRender = () => {
     const handleClick = (id) => {
@@ -60,7 +61,7 @@ const Channels = () => {
     <Col className="col-4 col-md-2 border-end pt-5 px-0 bg-light">
       <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
         <span>Каналы</span>
-        <Button variant="link" className="p-0 text-primary btn-group-vertical">
+        <Button type='button' onClick={showModal('adding')} variant="link" className="p-0 text-primary btn-group-vertical">
             <PlusSquare />
           <span className="visually-hidden">+</span>
         </Button>
