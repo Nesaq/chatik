@@ -73,6 +73,12 @@ const SocketIoProvider = ({ children }) => {
     });
   };
 
+  const renameChannel = (channel, connectionStatus) => {
+    socket.emit('renameChannel', channel, (response) => {
+      connectionStatus(response);
+    });
+  };
+
   useEffect(() => {
     socket.on('newMessage', (message) => {
       dispatch(messagesActions.addMessage(message));
@@ -81,10 +87,17 @@ const SocketIoProvider = ({ children }) => {
     socket.on('newChannel', (channel) => {
       dispatch(channelsActions.addChannel(channel));
     });
+
+    socket.on('renameChannel', (channel) => {
+      dispatch(channelsActions.renameChannel({
+        id: channel.id,
+        changes: { name: channel.name },
+      }));
+    });
   }, []);
 
   return (
-    <ApiContext.Provider value={{ addMessage, addChannel }}>
+    <ApiContext.Provider value={{ addMessage, addChannel, renameChannel }}>
       { children }
     </ApiContext.Provider>
   );
@@ -102,7 +115,7 @@ const PrivateRoute = ({ children }) => {
 
 const App = () => (
   <SocketIoProvider>
-  <AuthProvider>
+    <AuthProvider>
     <Router>
     <div className="d-flex flex-column h-100">
       <NavBar />
@@ -113,7 +126,7 @@ const App = () => (
     </Routes>
     </div>
     </Router>
-  </AuthProvider>
+    </AuthProvider>
   </SocketIoProvider>
 );
 

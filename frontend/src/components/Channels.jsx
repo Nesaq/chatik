@@ -14,14 +14,23 @@ import { openModal } from '../store/modalsSlice.js';
 const Channels = () => {
   const dispatch = useDispatch();
   const channels = useSelector(channelsSelectors.selectAll);
+  console.log('channelsFORMODAL', channels);
   //  {id: 1, name: 'general', removable: false}
   //  {id: 2, name: 'random', removable: false}
+  //  {id: 3, name: 'someName', removable: true}
   const currentChannelId = useSelector((state) => state.channelsReducer.currentChannelId);
 
   const modalHandlerAdd = () => {
     dispatch(openModal({
       type: 'adding',
       itemId: null,
+    }));
+  };
+
+  const modalHandlerRename = () => {
+    dispatch(openModal({
+      type: 'renaming',
+      itemId: channels,
     }));
   };
 
@@ -54,7 +63,7 @@ const Channels = () => {
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item>Удалить</Dropdown.Item>
-              <Dropdown.Item>Переименовать</Dropdown.Item>
+              <Dropdown.Item onClick={modalHandlerRename}>Переименовать</Dropdown.Item>
             </Dropdown.Menu>
             </Dropdown>
           </Nav.Item>

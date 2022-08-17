@@ -44,7 +44,6 @@ const Add = () => {
     },
     validationSchema: modalAddValidation,
     onSubmit: (values) => {
-      console.log('valuesADDCHANNELS', values);
       const { name } = values;
       addChannel({ name }, responseCheck);
     },
