@@ -24,7 +24,7 @@ const Add = () => {
       .min(3, 'От 3 до 20 символов')
       .max(20, 'От 3 до 20 символов')
       .notOneOf(channels.map((channel) => channel.name), 'Должно быть уникальным')
-      .required('Обязательное поеле'),
+      .required('Обязательное поле'),
   });
 
   const responseCheck = (response) => {

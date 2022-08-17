@@ -36,7 +36,7 @@ const MessagesForm = () => {
 
   const formik = useFormik({
     initialValues: { body: '' },
-    validationMessagesForm,
+    validationSchema: validationMessagesForm,
     onSubmit: (values) => {
       console.log('values', values);
       const { body } = values;
