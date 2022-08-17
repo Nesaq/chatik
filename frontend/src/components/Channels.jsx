@@ -9,10 +9,9 @@ import {
 } from 'react-bootstrap';
 import { selectors as channelsSelectors } from '../store/channelsSlice.js';
 import { actions as channelsActions } from '../store/channelsSlice.js';
-// import getModal from './Modals/index.js';
+import getModal from './Modals/index.js';
 
-const Channels = (props) => {
-  const { showModal } = props;
+const Channels = () => {
   const dispatch = useDispatch();
   const channels = useSelector(channelsSelectors.selectAll);
   //  {id: 1, name: 'general', removable: false}
@@ -61,7 +60,7 @@ const Channels = (props) => {
     <Col className="col-4 col-md-2 border-end pt-5 px-0 bg-light">
       <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
         <span>Каналы</span>
-        <Button type='button' onClick={showModal('adding')} variant="link" className="p-0 text-primary btn-group-vertical">
+        <Button type='button' onClick={getModal('adding')} variant="link" className="p-0 text-primary btn-group-vertical">
             <PlusSquare />
           <span className="visually-hidden">+</span>
         </Button>

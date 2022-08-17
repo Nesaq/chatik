@@ -1,15 +1,18 @@
+/* eslint-disable import/no-duplicates */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { selectors as channelsSelectors } from '../../store/channelsSlice.js';
+import { actions as channelsActions } from '../../store/channelsSlice.js';
 import useSocket from '../../hooks/useSocket.js';
+import { closeModal } from '../../store/modalsSlice.js';
 
-const Add = ({ onHide }) => {
-    console.log(onHide);
-  const inputRef = useRef(null);
+const Add = () => {
+  const dispatch = useDispatch();
+  const inputRef = useRef();
   const { addChannel } = useSocket();
   const channels = useSelector(channelsSelectors.selectAll);
   console.log('channelsADDMODAL', channels);
@@ -24,6 +27,17 @@ const Add = ({ onHide }) => {
       .required('Обязательное поеле'),
   });
 
+  const responseCheck = (response) => {
+    if (response.status === 'ok') {
+      const { id } = response.data;
+      console.log('EMMIT ID', id);
+      dispatch(channelsActions.setCurrentChannelId(id));
+      dispatch(closeModal());
+    } else {
+      console.log(`${response.status} bad connection`);
+    }
+  };
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -31,8 +45,7 @@ const Add = ({ onHide }) => {
     modalAddValidation,
     onSubmit: (values) => {
       console.log('valuesADDCHANNELS', values);
-      addChannel({ name: values.name });
-      onHide();
+      addChannel(values.name, responseCheck);
     },
   });
 
@@ -41,8 +54,8 @@ const Add = ({ onHide }) => {
   }, []);
 
   return (
-        <Modal show>
-          <Modal.Header closeButton onHide={onHide}>
+        <Modal show onHide={() => dispatch(closeModal())}>
+          <Modal.Header closeButton>
             <Modal.Title>Добавить канал</Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -63,7 +76,7 @@ const Add = ({ onHide }) => {
                   </Form.Control.Feedback>
               </Form.Group>
               <div className='d-flex justify-content-end'>
-                <Button variant='secondary' type='button' onClick={onHide} className='me-2'>Отменить</Button>
+                <Button variant='secondary' type='button' onClick={() => dispatch(closeModal())} className='me-2'>Отменить</Button>
                 <Button disabled={formik.isSubmitting} type='submit' variant='primary'>Отправить</Button>
               </div>
             </Form>

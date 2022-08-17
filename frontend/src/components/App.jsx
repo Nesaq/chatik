@@ -67,15 +67,9 @@ const SocketIoProvider = ({ children }) => {
     });
   };
 
-  const addChannel = (channel) => {
+  const addChannel = (channel, connectionStatus) => {
     socket.emit('newChannel', channel, (response) => {
-      if (response.status === 'ok') {
-        const { id } = response.data;
-        console.log('EMMIT ID', id);
-        dispatch(channelsActions.setCurrentChannelId(id));
-      } else {
-        console.log(`${response.status} bad connection`);
-      }
+      connectionStatus(response);
     });
   };
 
