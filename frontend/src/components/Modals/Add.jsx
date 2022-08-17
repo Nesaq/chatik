@@ -16,8 +16,6 @@ const Add = () => {
   const { addChannel } = useSocket();
 
   const channels = useSelector(channelsSelectors.selectAll);
-  const channelsName = channels.map((channel) => channel.name);
-  console.log('channelsName', channelsName);
 
   const modalAddValidation = yup.object().shape({
     name: yup
@@ -44,7 +42,7 @@ const Add = () => {
     initialValues: {
       name: '',
     },
-    modalAddValidation,
+    validationSchema: modalAddValidation,
     onSubmit: (values) => {
       console.log('valuesADDCHANNELS', values);
       const { name } = values;

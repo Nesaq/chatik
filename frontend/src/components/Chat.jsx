@@ -8,6 +8,7 @@ import Channels from './Channels.jsx';
 import Messages from './Messages/Messages.jsx';
 import { actions as channelsActions } from '../store/channelsSlice.js';
 import { actions as messagesActions } from '../store/messagesSlice.js';
+import ModalsRender from './Modals/ModalsRender.jsx';
 
 const Chat = () => {
   const auth = useAuth();
@@ -30,6 +31,7 @@ const Chat = () => {
             <Row className='h-100 bg-white'>
               <Channels />
               <Messages />
+              <ModalsRender />
             </Row>
         </Container>
   );
