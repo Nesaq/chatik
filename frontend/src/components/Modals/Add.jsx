@@ -14,7 +14,10 @@ const Add = () => {
   const dispatch = useDispatch();
   const inputRef = useRef();
   const { addChannel } = useSocket();
+
   const channels = useSelector(channelsSelectors.selectAll);
+  const channelsName = channels.map((channel) => channel.name);
+  console.log(channelsName);
   console.log('channelsADDMODAL', channels);
 
   const modalAddValidation = yup.object().shape({
@@ -45,7 +48,8 @@ const Add = () => {
     modalAddValidation,
     onSubmit: (values) => {
       console.log('valuesADDCHANNELS', values);
-      addChannel(values.name, responseCheck);
+      const { name } = values;
+      addChannel({ name }, responseCheck);
     },
   });
 
@@ -54,8 +58,8 @@ const Add = () => {
   }, []);
 
   return (
-        <Modal show onHide={() => dispatch(closeModal())}>
-          <Modal.Header closeButton>
+        <Modal show>
+          <Modal.Header closeButton onHide={() => dispatch(closeModal())}>
             <Modal.Title>Добавить канал</Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -70,14 +74,14 @@ const Add = () => {
                   value={formik.values.name}
                   isInvalid={formik.errors.name && formik.touched.name}
                   />
-                  <Form.Label htmlfor='name' className='visually-hidden'>Имя канала</Form.Label>
+                  <Form.Label htmlFor='name' className='visually-hidden'>Имя канала</Form.Label>
                   <Form.Control.Feedback type="invalid">
                     {formik.errors.name}
                   </Form.Control.Feedback>
               </Form.Group>
               <div className='d-flex justify-content-end'>
                 <Button variant='secondary' type='button' onClick={() => dispatch(closeModal())} className='me-2'>Отменить</Button>
-                <Button disabled={formik.isSubmitting} type='submit' variant='primary'>Отправить</Button>
+                <Button type='submit' variant='primary'>Отправить</Button>
               </div>
             </Form>
           </Modal.Body>

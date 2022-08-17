@@ -9,7 +9,8 @@ import {
 } from 'react-bootstrap';
 import { selectors as channelsSelectors } from '../store/channelsSlice.js';
 import { actions as channelsActions } from '../store/channelsSlice.js';
-import getModal from './Modals/index.js';
+import { openModal } from '../store/modalsSlice.js';
+import Modals from './Modals/ModalsRender.jsx';
 
 const Channels = () => {
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ const Channels = () => {
             </Dropdown>
           </Nav.Item>
         ))}
+        <Modals />
       </Nav>
     );
   };
@@ -60,7 +62,7 @@ const Channels = () => {
     <Col className="col-4 col-md-2 border-end pt-5 px-0 bg-light">
       <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
         <span>Каналы</span>
-        <Button type='button' onClick={getModal('adding')} variant="link" className="p-0 text-primary btn-group-vertical">
+        <Button type='button' onClick={() => dispatch(openModal({ type: 'adding', itemId: null }))} variant="link" className="p-0 text-primary btn-group-vertical">
             <PlusSquare />
           <span className="visually-hidden">+</span>
         </Button>
