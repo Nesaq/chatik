@@ -17,8 +17,7 @@ const Add = () => {
 
   const channels = useSelector(channelsSelectors.selectAll);
   const channelsName = channels.map((channel) => channel.name);
-  console.log(channelsName);
-  console.log('channelsADDMODAL', channels);
+  console.log('channelsName', channelsName);
 
   const modalAddValidation = yup.object().shape({
     name: yup
@@ -58,7 +57,7 @@ const Add = () => {
   }, []);
 
   return (
-        <Modal show>
+        <Modal show centered>
           <Modal.Header closeButton onHide={() => dispatch(closeModal())}>
             <Modal.Title>Добавить канал</Modal.Title>
           </Modal.Header>
