@@ -62,8 +62,8 @@ const Add = () => {
             <Form onSubmit={formik.handleSubmit}>
               <Form.Group>
                 <Form.Control
-                  name="body"
-                  id="name"
+                  name='name'
+                  id='name'
                   className='mb-2'
                   ref={inputRef}
                   onChange={formik.handleChange}
