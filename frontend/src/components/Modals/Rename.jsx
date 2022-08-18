@@ -41,10 +41,10 @@ const RenameModal = () => {
     validationSchema: modalRenameValidation,
     onSubmit: (values) => {
       console.log('valuesRanameChannels', values);
-      const { channelName } = values.name;
+      const { name } = values;
       renameChannel({
         id: currentChannel.id,
-        name: channelName,
+        name,
       }, responseCheck);
     },
   });
@@ -62,6 +62,7 @@ const RenameModal = () => {
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>
             <Form.Control
+              id='name'
               name='name'
               className='mb-2'
               ref={inputRef}

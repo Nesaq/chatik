@@ -14,6 +14,7 @@ import { openModal } from '../store/modalsSlice.js';
 const Channels = () => {
   const dispatch = useDispatch();
   const channels = useSelector(channelsSelectors.selectAll);
+  // const channelId = channels.map((channel) => channel.id);
   console.log('channelsFORMODAL', channels);
   //  {id: 1, name: 'general', removable: false}
   //  {id: 2, name: 'random', removable: false}
@@ -27,13 +28,6 @@ const Channels = () => {
     }));
   };
 
-  const modalHandlerRename = () => {
-    dispatch(openModal({
-      type: 'renaming',
-      itemId: channels,
-    }));
-  };
-
   const channelsRender = () => {
     const handleClick = (id) => {
       dispatch(channelsActions.setCurrentChannelId(id));
@@ -43,27 +37,27 @@ const Channels = () => {
       <Nav as='ul' variant='pills' fill className='flex-column px-2'>
         {channels.map((channel) => (
           <Nav.Item as='li' key={channel.id} className='w-100'>
-            <Dropdown as={ButtonGroup} className='w-100'>
+            <Dropdown as={ButtonGroup} className='w-100 d-flex'>
               <button
               type="button"
               onClick={() => handleClick(channel.id)}
-              className={cn('w-100', 'rounded-0', 'text-start', 'btn', {
+              className={cn('w-100', 'text-truncate', 'rounded-0', 'text-start', 'btn', {
                 'btn-secondary': channel.id === currentChannelId,
               })}
             >
               <span className="me-1">#</span>
               {channel.name}
             </button>
-            <Dropdown.Toggle
+              { channel.removable && <Dropdown.Toggle
               split
               variant={channel.id === currentChannelId ? 'secondary' : null}
-              className='w-100 rounded-0 text-start'
+              className='text-start flex-grow-0'
             >
-             <span className='visually-hidden'>Доп</span>
-            </Dropdown.Toggle>
+             <span className='visually-hidden'>Управление каналом</span>
+            </Dropdown.Toggle> }
             <Dropdown.Menu>
               <Dropdown.Item>Удалить</Dropdown.Item>
-              <Dropdown.Item onClick={modalHandlerRename}>Переименовать</Dropdown.Item>
+              <Dropdown.Item onClick={() => dispatch(openModal({ type: 'renaming', itemId: channel }))}>Переименовать</Dropdown.Item>
             </Dropdown.Menu>
             </Dropdown>
           </Nav.Item>
