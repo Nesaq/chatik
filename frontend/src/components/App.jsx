@@ -79,6 +79,12 @@ const SocketIoProvider = ({ children }) => {
     });
   };
 
+  const removeChannel = (channel, connectionStatus) => {
+    socket.emit('removeChannel', channel, (response) => {
+      connectionStatus(response);
+    });
+  };
+
   useEffect(() => {
     socket.on('newMessage', (message) => {
       dispatch(messagesActions.addMessage(message));
@@ -94,10 +100,16 @@ const SocketIoProvider = ({ children }) => {
         changes: { name: channel.name },
       }));
     });
+
+    socket.on('removeChannel', (channel) => {
+      dispatch(channelsActions.removeChannel(channel.id));
+    });
   }, []);
 
   return (
-    <ApiContext.Provider value={{ addMessage, addChannel, renameChannel }}>
+    <ApiContext.Provider value={{
+      addMessage, addChannel, renameChannel, removeChannel,
+    }}>
       { children }
     </ApiContext.Provider>
   );

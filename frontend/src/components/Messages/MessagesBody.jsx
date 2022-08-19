@@ -18,7 +18,7 @@ const MessagesBody = () => {
   const currentChannelId = useSelector((state) => state.channelsReducer.currentChannelId);
   const allMessages = useSelector(messagesSelectors.selectAll);
   const channelMessages = allMessages.filter(({ channelId }) => channelId === currentChannelId);
-  console.log('channelMessages', channelMessages);
+  // console.log('channelMessages', channelMessages);
   return (
       <div id="messages-box" className="chat-messages overflow-auto px-5 ">
         {channelMessages && channelMessages.map((m) => (

@@ -12,8 +12,8 @@ const RenameModal = () => {
   const inputRef = useRef();
   const { renameChannel } = useSocket();
   const channels = useSelector(channelsSelectors.selectAll);
-  const currentChannel = useSelector((state) => state.modalsReducer.itemId);
-  console.log('ModalsReducer', currentChannel);
+  const currentChannel = useSelector((state) => state.modalsReducer.item);
+  // console.log('ModalsReducer', currentChannel);
 
   const modalRenameValidation = yup.object().shape({
     name: yup
@@ -40,7 +40,7 @@ const RenameModal = () => {
     },
     validationSchema: modalRenameValidation,
     onSubmit: (values) => {
-      console.log('valuesRanameChannels', values);
+      // console.log('valuesRanameChannels', values);
       const { name } = values;
       renameChannel({
         id: currentChannel.id,

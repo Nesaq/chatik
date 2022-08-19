@@ -38,7 +38,7 @@ const MessagesForm = () => {
     initialValues: { body: '' },
     validationSchema: validationMessagesForm,
     onSubmit: (values) => {
-      console.log('values', values);
+      // console.log('values', values);
       const { body } = values;
       const data = {
         body,
