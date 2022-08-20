@@ -1,6 +1,6 @@
 /* eslint-disable import/no-duplicates */
 /* eslint-disable react/prop-types */
-import React, { useEffect, useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 import * as yup from 'yup';
@@ -12,7 +12,7 @@ import { closeModal } from '../../store/modalsSlice.js';
 
 const Add = () => {
   const dispatch = useDispatch();
-  const inputRef = useRef();
+  const inputRef = useRef(null);
   const { addChannel } = useSocket();
 
   const channels = useSelector(channelsSelectors.selectAll);

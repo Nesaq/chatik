@@ -6,7 +6,7 @@ import useSocket from '../../hooks/useSocket.js';
 
 const Remove = () => {
   const { removeChannel } = useSocket();
-  console.log(removeChannel);
+  // console.log(removeChannel);
   const dispatch = useDispatch();
   const currentChannel = useSelector((state) => state.modalsReducer.item);
   console.log('currentChannelREMOVE', currentChannel);

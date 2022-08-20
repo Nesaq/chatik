@@ -15,7 +15,7 @@ const schemaLogin = Yup.object().shape({
 const Login = () => {
   const auth = useAuth();
   const location = useLocation();
-  const inputRef = useRef();
+  const inputRef = useRef(null);
   const navigate = useNavigate();
   const [authFailed, setAuthFailed] = useState(false);
 

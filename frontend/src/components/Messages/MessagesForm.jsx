@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import * as yup from 'yup';
@@ -19,12 +19,8 @@ const MessagesForm = () => {
   // console.log('username', username);
   // console.log('channelId', channelId);
 
-  const inputRef = useRef();
+  const inputRef = useRef(null);
   const { addMessage } = useSocket();
-
-  useEffect(() => {
-    inputRef.current.focus();
-  });
 
   const responseCheck = (response) => {
     if (response.status === 'ok') {
@@ -51,7 +47,7 @@ const MessagesForm = () => {
   });
 
   useEffect(() => {
-    inputRef.current.focus();
+    inputRef.current?.focus();
   });
 
   return (

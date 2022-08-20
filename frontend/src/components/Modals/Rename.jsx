@@ -9,7 +9,7 @@ import { closeModal } from '../../store/modalsSlice.js';
 
 const RenameModal = () => {
   const dispatch = useDispatch();
-  const inputRef = useRef();
+  const inputRef = useRef(null);
   const { renameChannel } = useSocket();
   const channels = useSelector(channelsSelectors.selectAll);
   const currentChannel = useSelector((state) => state.modalsReducer.item);
@@ -50,7 +50,7 @@ const RenameModal = () => {
   });
 
   useEffect(() => {
-    inputRef.current.select();
+    inputRef.current?.select();
   }, []);
 
   return (
