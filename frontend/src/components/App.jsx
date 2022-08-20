@@ -19,17 +19,17 @@ import AuthContext from '../context/index.js';
 import useAuth from '../hooks/index.js';
 import Chat from './Chat.jsx';
 import NavBar from './Nav.jsx';
+import SignupPage from './Registration.jsx';
 
 // eslint-disable-next-line react/prop-types
 const AuthProvider = ({ children }) => {
-  // console.log(children);
-  const currentUser = JSON.parse(localStorage.getItem('userId'));
+  const currentUser = JSON.parse(localStorage.getItem('user'));
   console.log('currentUser', currentUser);
   // eslint-disable-next-line max-len
   const [loggedIn, setLoggedIn] = useState(currentUser ? { username: currentUser.username } : null);
 
   const getAuthHeader = () => {
-    const user = JSON.parse(localStorage.getItem('userId'));
+    const user = JSON.parse(localStorage.getItem('user'));
     if (user && user.token) {
       return { Authorization: `Bearer ${user.token}` };
     }
@@ -38,12 +38,12 @@ const AuthProvider = ({ children }) => {
 
   const logIn = (data) => {
     console.log('logIN DATA', data);
-    localStorage.setItem('userId', JSON.stringify(data));
+    localStorage.setItem('user', JSON.stringify(data));
     setLoggedIn({ username: data.username });
   };
 
   const logOut = () => {
-    localStorage.removeItem('userId');
+    localStorage.removeItem('user');
     setLoggedIn(false);
   };
 
@@ -135,6 +135,7 @@ const App = () => (
           <Route path='/' element={<PrivateRoute><Chat /></PrivateRoute>} />
           <Route path='/login' element={<Login />} />
           <Route path='*' element={<NotFoundPage />} />
+          <Route path='/signup' element={<SignupPage />} />
     </Routes>
     </div>
     </Router>

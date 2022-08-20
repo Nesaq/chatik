@@ -15,7 +15,7 @@ const validationMessagesForm = yup.object().shape({
 
 const MessagesForm = () => {
   const channelId = useSelector((state) => state.channelsReducer.currentChannelId);
-  const { username } = JSON.parse(localStorage.getItem('userId'));
+  const { username } = JSON.parse(localStorage.getItem('user'));
   // console.log('username', username);
   // console.log('channelId', channelId);
 

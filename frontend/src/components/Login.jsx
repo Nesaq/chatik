@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useRef, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import * as Yup from 'yup';
 import useAuth from '../hooks/index.js';
@@ -14,7 +14,6 @@ const schemaLogin = Yup.object().shape({
 
 const Login = () => {
   const auth = useAuth();
-  const location = useLocation();
   const inputRef = useRef(null);
   const navigate = useNavigate();
   const [authFailed, setAuthFailed] = useState(false);
@@ -35,12 +34,7 @@ const Login = () => {
         const response = await axios.post(routes.loginPath(), values);
         console.log('response', response.data);
         auth.logIn(response.data);
-        // localStorage.setItem('user', JSON.stringify(response.data));
-        // auth.logIn();
-        const { from } = location.state || { from: { pathname: '/' } };
-        console.log('from', from);
-        navigate(from);
-        // console.log(from);
+        navigate('/');
       } catch (err) {
         if (err.isAxiosError && err.response.status === 401) {
           setAuthFailed(true);
