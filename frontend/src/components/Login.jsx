@@ -29,10 +29,8 @@ const Login = () => {
     },
     schemaLogin,
     onSubmit: async (values) => {
-      console.log('values', values);
       try {
         const response = await axios.post(routes.loginPath(), values);
-        console.log('response', response.data);
         auth.logIn(response.data);
         navigate('/');
       } catch (err) {
@@ -94,7 +92,9 @@ const Login = () => {
             </div>
             <div className='card-footer p-4'>
               <div className='text-center'>
-                <span>Нет аккаунта? Регистрация</span>
+                <span>Нет аккаунта?</span>
+                {' '}
+                <a href='/signup'>Регистрация</a>
               </div>
             </div>
           </div>
