@@ -5,10 +5,13 @@ import { selectors as messagesSelectors } from '../../store/messagesSlice.js';
 
 const MessagesHeader = () => {
   const channels = useSelector(channelsSelectros.selectAll);
-  const currentChannelId = useSelector((state) => state.channelsReducer.currentChannelId);
-  const currentChannel = channels.find(({ id }) => id === currentChannelId);
   const allMessages = useSelector(messagesSelectors.selectAll);
+  const currentChannelId = useSelector((state) => state.channelsReducer.currentChannelId);
+
+  const currentChannel = channels.find(({ id }) => id === currentChannelId);
+  console.log('currentChannel', currentChannel);
   const channelMessages = allMessages.filter(({ channelId }) => channelId === currentChannelId);
+  console.log('channelMessages', channelMessages);
 
   return (
       <div className="bg-light mb-4 p-3 shadow-sm small">

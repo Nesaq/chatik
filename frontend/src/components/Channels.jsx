@@ -14,11 +14,6 @@ import { openModal } from '../store/modalsSlice.js';
 const Channels = () => {
   const dispatch = useDispatch();
   const channels = useSelector(channelsSelectors.selectAll);
-  // const channelId = channels.map((channel) => channel.id);
-  console.log('channelsFORMODAL', channels);
-  //  {id: 1, name: 'general', removable: false}
-  //  {id: 2, name: 'random', removable: false}
-  //  {id: 3, name: 'someName', removable: true}
   const currentChannelId = useSelector((state) => state.channelsReducer.currentChannelId);
 
   const modalHandlerAdd = () => {
