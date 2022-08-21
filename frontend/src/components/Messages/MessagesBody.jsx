@@ -21,7 +21,7 @@ const MessagesBody = () => {
   const channelMessages = allMessages.filter(({ channelId }) => channelId === currentChannelId);
 
   useEffect(() => {
-    scrollForMessages.current.scrollIntoView({
+    scrollForMessages.current?.scrollIntoView({
       behavior: 'smooth',
     });
   }, [channelMessages]);

@@ -19,7 +19,7 @@ const Login = () => {
   const [authFailed, setAuthFailed] = useState(false);
 
   useEffect(() => {
-    inputRef.current.focus();
+    inputRef.current?.focus();
   }, []);
 
   const formik = useFormik({
@@ -36,7 +36,7 @@ const Login = () => {
       } catch (err) {
         if (err.isAxiosError && err.response.status === 401) {
           setAuthFailed(true);
-          inputRef.current.select();
+          inputRef.current?.select();
           return;
         }
         throw err;

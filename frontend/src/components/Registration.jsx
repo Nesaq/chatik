@@ -7,6 +7,7 @@ import axios from 'axios';
 import {
   Container, Row, Col, Form, Card, Button,
 } from 'react-bootstrap';
+
 import routes from '../routes.js';
 import useAuth from '../hooks/index.js';
 
@@ -24,6 +25,7 @@ const schemeForSignUpPage = yup.object().shape({
     .min(6, 'Не менее 6 символов'),
   confirmPassword: yup
     .string()
+    .required('Обязательное поле')
     .oneOf([yup.ref('password')], 'Пароли должны совпадать'),
 });
 
@@ -34,7 +36,7 @@ const SignupPage = () => {
   const [signupFailed, setSignup] = useState(false);
 
   useEffect(() => {
-    inputRef.current.focus();
+    inputRef.current?.focus();
   }, []);
 
   const formik = useFormik({
@@ -56,7 +58,7 @@ const SignupPage = () => {
       } catch (err) {
         if (err.isAxiosError && err.response.status === 409) {
           setSignup(true);
-          inputRef.current.select();
+          inputRef.current?.select();
           return;
         }
         throw err;
@@ -113,7 +115,7 @@ const SignupPage = () => {
                                         name='confirmPassword'
                                         id="confirmPassword"
                                         type='password'
-                                        placeholder='Повторите пароль'
+                                        placeholder='Подтвердите пароль'
                                         autoComplete='new-password'
                                         value={formik.values.confirmPassword}
                                         onChange={formik.handleChange}
@@ -124,7 +126,7 @@ const SignupPage = () => {
                                     <Form.Control.Feedback type='invalid' tooltip>
                                       {signupFailed ? 'Пользователь уже существует' : formik.errors.confirmPassword}
                                     </Form.Control.Feedback>
-                                    <Form.Label htmlFor="confirmPassword">Повторите пароль</Form.Label>
+                                    <Form.Label htmlFor="confirmPassword">Подтвердите пароль</Form.Label>
                                     </Form.Group>
                             <Button className='w-100' type='submit' variant='outline-primary'>Зарегистрироваться</Button>
                             </Form>
