@@ -18,6 +18,7 @@ export default {
       authFailed: 'Неверные имя пользователя или пароль',
       header: 'Войти',
     },
+    logout: 'Выйти',
 
   },
 };
