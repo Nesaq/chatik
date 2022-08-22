@@ -8,6 +8,7 @@ import {
   Container, Row, Col, Form, Card, Button,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 import routes from '../routes.js';
 import useAuth from '../hooks/index.js';
@@ -54,16 +55,18 @@ const SignupPage = () => {
         const response = await axios.post(routes.signupPath(), { username: values.username, password: values.password });
         console.log(response.data);
         localStorage.setItem('user', JSON.stringify(response.data));
-        console.log('RESPONSE DATA FROM SIGN UP', response.data);
         auth.logIn(response.data);
         navigate('/');
       } catch (err) {
         if (err.isAxiosError && err.response.status === 409) {
           setSignup(true);
           inputRef.current?.select();
-          return;
+        } else {
+          toast.error(t('networkError'), {
+            position: 'top-right',
+          });
+          throw err;
         }
-        throw err;
       }
     },
   });

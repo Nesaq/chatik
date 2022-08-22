@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 import { selectors as channelsSelectors } from '../../store/channelsSlice.js';
 import { actions as channelsActions } from '../../store/channelsSlice.js';
@@ -32,12 +33,16 @@ const Add = () => {
 
   const responseCheck = (response) => {
     if (response.status === 'ok') {
+      toast.success(t('channels.created'), {
+        position: 'top-right',
+      });
       const { id } = response.data;
-      console.log('EMMIT ID', id);
       dispatch(channelsActions.setCurrentChannelId(id));
       dispatch(closeModal());
     } else {
-      console.log(`${response.status} bad connection`);
+      toast.error(t('networkError'), {
+        position: 'top-right',
+      });
     }
   };
 

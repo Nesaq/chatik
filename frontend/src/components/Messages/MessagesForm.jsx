@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import { useSelector } from 'react-redux';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
 import { useTranslation } from 'react-i18next';
-
+import { toast } from 'react-toastify';
 import useSocket from '../../hooks/useSocket';
 
 const validationMessagesForm = yup.object().shape({
@@ -28,9 +28,11 @@ const MessagesForm = () => {
 
   const responseCheck = (response) => {
     if (response.status === 'ok') {
-      console.log(t('messages.goodResponse'));
+      console.log(t('messages.networkOkStatus'));
     } else {
-      console.log(t('messages.badResponse'));
+      toast.error(t('networkError'), {
+        position: 'top-right',
+      });
     }
   };
 

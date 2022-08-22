@@ -10,6 +10,9 @@ import {
 } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { io } from 'socket.io-client';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { actions as messagesActions } from '../store/messagesSlice.js';
 import { actions as channelsActions } from '../store/channelsSlice.js';
 import ApiContext from '../context/apiContext.js';
@@ -138,6 +141,7 @@ const App = () => (
           <Route path='/signup' element={<SignupPage />} />
     </Routes>
     </div>
+    <ToastContainer />
     </Router>
     </AuthProvider>
   </SocketIoProvider>

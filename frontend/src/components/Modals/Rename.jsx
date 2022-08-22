@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 import { selectors as channelsSelectors } from '../../store/channelsSlice.js';
 import useSocket from '../../hooks/useSocket.js';
@@ -30,10 +31,14 @@ const RenameModal = () => {
 
   const responseCheck = (response) => {
     if (response.status === 'ok') {
-      console.log(t('modals.goodResponse'));
+      toast.success(t('channels.renamed'), {
+        position: 'top-right',
+      });
       dispatch(closeModal());
     } else {
-      console.log(t('modals.badResponse'));
+      toast.error(t('networkError'), {
+        position: 'top-right',
+      });
     }
   };
 

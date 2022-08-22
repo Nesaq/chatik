@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 import { closeModal } from '../../store/modalsSlice.js';
 import useSocket from '../../hooks/useSocket.js';
@@ -16,10 +17,14 @@ const Remove = () => {
 
   const responseCheck = (response) => {
     if (response.status === 'ok') {
-      console.log('good connection');
+      toast.success(t('channels.removed'), {
+        position: 'top-right',
+      });
       dispatch(closeModal());
     } else {
-      console.log('bad connection');
+      toast.error(t('networkError'), {
+        position: 'top-right',
+      });
     }
   };
 
