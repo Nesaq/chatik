@@ -7,11 +7,13 @@ import { PlusSquare } from 'react-bootstrap-icons';
 import {
   Nav, Col, Button, ButtonGroup, Dropdown,
 } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { selectors as channelsSelectors } from '../store/channelsSlice.js';
 import { actions as channelsActions } from '../store/channelsSlice.js';
 import { openModal } from '../store/modalsSlice.js';
 
 const Channels = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const channels = useSelector(channelsSelectors.selectAll);
   const currentChannelId = useSelector((state) => state.channelsReducer.currentChannelId);
@@ -48,11 +50,11 @@ const Channels = () => {
               variant={channel.id === currentChannelId ? 'secondary' : null}
               className='text-start flex-grow-0'
             >
-             <span className='visually-hidden'>Управление каналом</span>
+             <span className='visually-hidden'>{t('channels.menu')}</span>
             </Dropdown.Toggle> }
             <Dropdown.Menu>
-              <Dropdown.Item onClick={() => dispatch(openModal({ type: 'removing', item: channel }))}>Удалить</Dropdown.Item>
-              <Dropdown.Item onClick={() => dispatch(openModal({ type: 'renaming', item: channel }))}>Переименовать</Dropdown.Item>
+              <Dropdown.Item onClick={() => dispatch(openModal({ type: 'removing', item: channel }))}>{t('channels.remove')}</Dropdown.Item>
+              <Dropdown.Item onClick={() => dispatch(openModal({ type: 'renaming', item: channel }))}>{t('channels.rename')}</Dropdown.Item>
             </Dropdown.Menu>
             </Dropdown>
           </Nav.Item>

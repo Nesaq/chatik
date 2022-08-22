@@ -13,7 +13,11 @@ export default async () => {
   await i18n
     .use(initReactI18next)
     .init({
-      ru,
+      lng: 'ru',
+      debug: false,
+      resources: {
+        ru,
+      },
     });
 
   const vdom = (
