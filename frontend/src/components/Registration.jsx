@@ -7,33 +7,35 @@ import axios from 'axios';
 import {
   Container, Row, Col, Form, Card, Button,
 } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 import routes from '../routes.js';
 import useAuth from '../hooks/index.js';
 
-const schemeForSignUpPage = yup.object().shape({
-  username: yup
-    .string()
-    .required('Обязательное поле')
-    .trim()
-    .min(3, 'От 3 до 20 символов')
-    .max(20, 'От 3 до 20 символов'),
-  password: yup
-    .string()
-    .required('Обязательное поле')
-    .trim()
-    .min(6, 'Не менее 6 символов'),
-  confirmPassword: yup
-    .string()
-    .required('Обязательное поле')
-    .oneOf([yup.ref('password')], 'Пароли должны совпадать'),
-});
-
 const SignupPage = () => {
+  const { t } = useTranslation();
   const auth = useAuth();
   const inputRef = useRef(null);
   const navigate = useNavigate();
   const [signupFailed, setSignup] = useState(false);
+
+  const schemeForSignUpPage = yup.object().shape({
+    username: yup
+      .string()
+      .required(t('signup.required'))
+      .trim()
+      .min(3, t('signup.usernameConstraints'))
+      .max(20, t('signup.usernameConstraints')),
+    password: yup
+      .string()
+      .required(t('signup.required'))
+      .trim()
+      .min(6, t('signup.passMin')),
+    confirmPassword: yup
+      .string()
+      .required(t('signup.required'))
+      .oneOf([yup.ref('password')], t('signup.mustMatch')),
+  });
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -72,12 +74,12 @@ const SignupPage = () => {
                     <Card className='shadow-sm'>
                         <Card.Body className='p-5'>
                             <Form onSubmit={formik.handleSubmit} className='w-100'>
-                                <h1 className='text-center mb-4'>Регистрация</h1>
+                                <h1 className='text-center mb-4'>{t('signup.header')}</h1>
                                 <Form.Group className='form-floating mb-3'>
                                     <Form.Control
                                         name='username'
                                         id='username'
-                                        placeholder='От 3 до 20 символов'
+                                        placeholder={t('signup.usernameConstraints')}
                                         autoComplete='username'
                                         value={formik.values.username}
                                         onChange={formik.handleChange}
@@ -86,7 +88,7 @@ const SignupPage = () => {
                                         ref={inputRef}
                                         required
                                         />
-                                        <Form.Label htmlFor="username">Имя пользователя</Form.Label>
+                                        <Form.Label htmlFor="username">{t('signup.usernameConstraints')}</Form.Label>
                                         <Form.Control.Feedback type='invalid' tooltip placement='right'>
                                             {formik.errors.username}
                                         </Form.Control.Feedback>
@@ -96,7 +98,7 @@ const SignupPage = () => {
                                         name='password'
                                         type='password'
                                         id='password'
-                                        placeholder='Не менее 6 символов'
+                                        placeholder={t('signup.passMin')}
                                         autoComplete='new-password'
                                         aria-describedby="passwordHelpBlock"
                                         value={formik.values.password}
@@ -106,16 +108,16 @@ const SignupPage = () => {
                                         required
                                     />
                                    <Form.Control.Feedback type='invalid' tooltip>
-                                            {formik.errors.username}
+                                            {formik.errors.password}
                                    </Form.Control.Feedback>
-                                   <Form.Label htmlFor="password">Пароль</Form.Label>
+                                   <Form.Label htmlFor="password">{t('signup.password')}</Form.Label>
                                    </Form.Group>
                                 <Form.Group className='form-floating mb-4'>
                                     <Form.Control
                                         name='confirmPassword'
                                         id="confirmPassword"
                                         type='password'
-                                        placeholder='Пароли должны совпадать'
+                                        placeholder={t('signup.mustMatch')}
                                         autoComplete='new-password'
                                         value={formik.values.confirmPassword}
                                         onChange={formik.handleChange}
@@ -124,11 +126,11 @@ const SignupPage = () => {
                                         required
                                     />
                                     <Form.Control.Feedback type='invalid' tooltip>
-                                      {signupFailed ? 'Пользователь уже существует' : formik.errors.confirmPassword}
+                                      {signupFailed ? t('signup.alreadyExists') : formik.errors.confirmPassword}
                                     </Form.Control.Feedback>
-                                    <Form.Label htmlFor="confirmPassword">Подтвердите пароль</Form.Label>
+                                    <Form.Label htmlFor="confirmPassword">{t('signup.confirm')}</Form.Label>
                                     </Form.Group>
-                            <Button className='w-100' type='submit' variant='outline-primary'>Зарегистрироваться</Button>
+                            <Button className='w-100' type='submit' variant='outline-primary'>{t('signup.submit')}</Button>
                             </Form>
                         </Card.Body>
                     </Card>
