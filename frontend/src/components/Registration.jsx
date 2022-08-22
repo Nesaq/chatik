@@ -96,7 +96,7 @@ const SignupPage = () => {
                                         name='password'
                                         type='password'
                                         id='password'
-                                        placeholder='Пароль'
+                                        placeholder='Не менее 6 символов'
                                         autoComplete='new-password'
                                         aria-describedby="passwordHelpBlock"
                                         value={formik.values.password}
@@ -115,7 +115,7 @@ const SignupPage = () => {
                                         name='confirmPassword'
                                         id="confirmPassword"
                                         type='password'
-                                        placeholder='Подтвердите пароль'
+                                        placeholder='Пароли должны совпадать'
                                         autoComplete='new-password'
                                         value={formik.values.confirmPassword}
                                         onChange={formik.handleChange}
