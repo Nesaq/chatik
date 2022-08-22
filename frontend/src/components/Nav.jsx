@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Container, Navbar } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import useAuth from '../hooks/index.js';
 
 const NavBar = () => {
@@ -10,7 +11,7 @@ const NavBar = () => {
   return (
         <Navbar className='shadow-sm' bg='white' expand='lg'>
             <Container>
-                <Navbar.Brand href='/'>Chat</Navbar.Brand>
+                <Navbar.Brand as={Link} to='/'>Chat</Navbar.Brand>
                 { auth.loggedIn ? <Button variant="primary" onClick={auth.logOut}>{t('logout')}</Button> : null }
             </Container>
         </Navbar>

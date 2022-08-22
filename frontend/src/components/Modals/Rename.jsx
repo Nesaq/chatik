@@ -3,34 +3,37 @@ import { useFormik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import { Modal, Form, Button } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+
 import { selectors as channelsSelectors } from '../../store/channelsSlice.js';
 import useSocket from '../../hooks/useSocket.js';
 import { closeModal } from '../../store/modalsSlice.js';
 
 const RenameModal = () => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const inputRef = useRef(null);
   const { renameChannel } = useSocket();
   const channels = useSelector(channelsSelectors.selectAll);
   const currentChannel = useSelector((state) => state.modalsReducer.item);
-  // console.log('ModalsReducer', currentChannel);
 
   const modalRenameValidation = yup.object().shape({
     name: yup
       .string()
       .trim()
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'От 3 до 20 символов')
-      .notOneOf(channels.map((channel) => channel.name), 'Должно быть уникальным')
-      .required('Обязательное поле'),
+      .min(3, t('modals.modalConstraints'))
+      .max(20, t('modals.modalConstraints'))
+      .notOneOf(channels.map((channel) => channel.name), t('modals.mustBeUnique'))
+      .required(t('modals.required')),
   });
 
   const responseCheck = (response) => {
     if (response.status === 'ok') {
-      console.log('good connection');
+      console.log(t('modals.goodResponse'));
       dispatch(closeModal());
     } else {
-      console.log('bad connection');
+      console.log(t('modals.badResponse'));
     }
   };
 
@@ -40,7 +43,6 @@ const RenameModal = () => {
     },
     validationSchema: modalRenameValidation,
     onSubmit: (values) => {
-      // console.log('valuesRanameChannels', values);
       const { name } = values;
       renameChannel({
         id: currentChannel.id,
@@ -70,14 +72,14 @@ const RenameModal = () => {
               value={formik.values.name}
               isInvalid={formik.errors.name && formik.touched.name}
               />
-              <Form.Label htmlFor='name' className='visually-hidden'>Имя канала</Form.Label>
+              <Form.Label htmlFor='name' className='visually-hidden'>{t('modals.channelName')}</Form.Label>
               <Form.Control.Feedback type="invalid">
                 {formik.errors.name}
               </Form.Control.Feedback>
           </Form.Group>
           <div className='d-flex justify-content-end'>
-            <Button variant='secondary' type='button' onClick={() => dispatch(closeModal())} className='me-2'>Отменить</Button>
-            <Button type='submit' variant='primary'>Отправить</Button>
+            <Button variant='secondary' type='button' onClick={() => dispatch(closeModal())} className='me-2'>{t('modals.cancel')}</Button>
+            <Button type='submit' variant='primary'>{t('modals.submit')}</Button>
           </div>
         </Form>
       </Modal.Body>

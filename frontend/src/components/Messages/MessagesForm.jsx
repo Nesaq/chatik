@@ -4,6 +4,8 @@ import { Button, Form, InputGroup } from 'react-bootstrap';
 import * as yup from 'yup';
 import { useSelector } from 'react-redux';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
+import { useTranslation } from 'react-i18next';
+
 import useSocket from '../../hooks/useSocket';
 
 const validationMessagesForm = yup.object().shape({
@@ -14,6 +16,8 @@ const validationMessagesForm = yup.object().shape({
 });
 
 const MessagesForm = () => {
+  const { t } = useTranslation();
+
   const channelId = useSelector((state) => state.channelsReducer.currentChannelId);
   const { username } = JSON.parse(localStorage.getItem('user'));
   // console.log('username', username);
@@ -24,9 +28,9 @@ const MessagesForm = () => {
 
   const responseCheck = (response) => {
     if (response.status === 'ok') {
-      console.log('good connection');
+      console.log(t('messages.goodResponse'));
     } else {
-      console.log('Bad response');
+      console.log(t('messages.badResponse'));
     }
   };
 
@@ -34,7 +38,6 @@ const MessagesForm = () => {
     initialValues: { body: '' },
     validationSchema: validationMessagesForm,
     onSubmit: (values) => {
-      // console.log('values', values);
       const { body } = values;
       const data = {
         body,
@@ -55,10 +58,10 @@ const MessagesForm = () => {
       <Form onSubmit={formik.handleSubmit} className="py-1 border rounded-2">
         <InputGroup>
           <Form.Control
-            name="body"
-            className="border-0 p-0 ps-2"
-            placeholder="Введите сообщение..."
-            aria-label="Новое сообщение"
+            name='body'
+            className='border-0 p-0 ps-2'
+            placeholder={t('messages.placeholder')}
+            aria-label={t('messages.arialLabel')}
             value={formik.values.body}
             onChange={formik.handleChange}
             ref={inputRef}

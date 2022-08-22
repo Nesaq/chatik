@@ -31,10 +31,10 @@ const Channels = () => {
     };
 
     return (
-      <Nav as='ul' variant='pills' fill className='flex-column px-2'>
+      <Nav as='ul' variant='pills' fill className='d-flex flex-column px-2'>
         {channels.map((channel) => (
           <Nav.Item as='li' key={channel.id} className='w-100'>
-            <Dropdown as={ButtonGroup} className='w-100 d-flex'>
+            <Dropdown as={ButtonGroup} className='w-100'>
               <button
               type="button"
               onClick={() => handleClick(channel.id)}
@@ -64,12 +64,12 @@ const Channels = () => {
   };
 
   return (
-    <Col className="col-4 col-md-2 border-end pt-5 px-0 bg-light">
-      <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
+    <Col className='col-4 col-md-2 border-end pt-5 px-0 bg-light'>
+      <div className='d-flex justify-content-between mb-2 ps-4 pe-2'>
         <span>{t('channels.channels')}</span>
-        <Button type='button' onClick={modalHandlerAdd} variant="link" className="p-0 text-primary btn-group-vertical">
+        <Button type='button' onClick={modalHandlerAdd} variant='link' className='p-0 text-primary btn-group-vertical'>
             <PlusSquare />
-          <span className="visually-hidden">+</span>
+          <span className='visually-hidden'>+</span>
         </Button>
       </div>
       {channelsRender()}

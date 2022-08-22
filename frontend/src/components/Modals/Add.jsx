@@ -5,12 +5,15 @@ import { useFormik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import { Modal, Form, Button } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+
 import { selectors as channelsSelectors } from '../../store/channelsSlice.js';
 import { actions as channelsActions } from '../../store/channelsSlice.js';
 import useSocket from '../../hooks/useSocket.js';
 import { closeModal } from '../../store/modalsSlice.js';
 
 const Add = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const inputRef = useRef(null);
   const { addChannel } = useSocket();
@@ -21,10 +24,10 @@ const Add = () => {
     name: yup
       .string()
       .trim()
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'От 3 до 20 символов')
-      .notOneOf(channels.map((channel) => channel.name), 'Должно быть уникальным')
-      .required('Обязательное поле'),
+      .min(3, t('modals.modalConstraints'))
+      .max(20, t('modals.modalConstraints'))
+      .notOneOf(channels.map((channel) => channel.name), t('modals.mustBeUnique'))
+      .required(t('modals.required')),
   });
 
   const responseCheck = (response) => {
@@ -70,14 +73,14 @@ const Add = () => {
                   value={formik.values.name}
                   isInvalid={formik.errors.name && formik.touched.name}
                   />
-                  <Form.Label htmlFor='name' className='visually-hidden'>Имя канала</Form.Label>
+                  <Form.Label htmlFor='name' className='visually-hidden'>{t('modals.channelName')}</Form.Label>
                   <Form.Control.Feedback type="invalid">
                     {formik.errors.name}
                   </Form.Control.Feedback>
               </Form.Group>
               <div className='d-flex justify-content-end'>
-                <Button variant='secondary' type='button' onClick={() => dispatch(closeModal())} className='me-2'>Отменить</Button>
-                <Button type='submit' variant='primary'>Отправить</Button>
+                <Button variant='secondary' type='button' onClick={() => dispatch(closeModal())} className='me-2'>{t('modals.cancel')}</Button>
+                <Button type='submit' variant='primary'>{t('modals.submit')}</Button>
               </div>
             </Form>
           </Modal.Body>
