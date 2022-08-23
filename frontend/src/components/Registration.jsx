@@ -91,7 +91,7 @@ const SignupPage = () => {
                                         ref={inputRef}
                                         required
                                         />
-                                        <Form.Label htmlFor="username">{t('signup.usernameConstraints')}</Form.Label>
+                                        <Form.Label htmlFor="username">{t('signup.username')}</Form.Label>
                                         <Form.Control.Feedback type='invalid' tooltip placement='right'>
                                             {formik.errors.username}
                                         </Form.Control.Feedback>
