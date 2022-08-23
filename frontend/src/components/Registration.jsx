@@ -71,75 +71,118 @@ const SignupPage = () => {
     },
   });
   return (
-      <Container fluid className='h-100'>
-          <Row className='justify-content-center align-content-center h-100'>
-              <Col md={8} xxl={6}>
-                  <Card className='shadow-sm'>
-                      <Card.Body className='p-5'>
-                          <Form onSubmit={formik.handleSubmit} className='w-100'>
-                              <h1 className='text-center mb-4'>{t('signup.header')}</h1>
-                              <Form.Group className='form-floating mb-3'>
-                                  <Form.Control
-                                        name='username'
-                                        id='username'
-                                        placeholder={t('signup.usernameConstraints')}
-                                        autoComplete='username'
-                                        value={formik.values.username}
-                                        onChange={formik.handleChange}
-                                        onBlur={formik.handleBlur}
-                                        isInvalid={(formik.touched.username && formik.errors.username) || signupFailed}
-                                        ref={inputRef}
-                                        required
-                                        />
-                                  <Form.Label htmlFor="username">{t('signup.username')}</Form.Label>
-                                  <Form.Control.Feedback type='invalid' tooltip placement='right'>
-                                      {formik.errors.username}
-                                  </Form.Control.Feedback>
-                              </Form.Group>
-                              <Form.Group className="form-floating mb-3">
-                                  <Form.Control
-                                        name='password'
-                                        type='password'
-                                        id='password'
-                                        placeholder={t('signup.passMin')}
-                                        autoComplete='new-password'
-                                        aria-describedby="passwordHelpBlock"
-                                        value={formik.values.password}
-                                        onChange={formik.handleChange}
-                                        onBlur={formik.handleBlur}
-                                        isInvalid={(formik.touched.password && formik.errors.password) || signupFailed}
-                                        required
-                                    />
-                                  <Form.Control.Feedback type='invalid' tooltip>
-                                      {formik.errors.password}
-                                  </Form.Control.Feedback>
-                                  <Form.Label htmlFor="password">{t('signup.password')}</Form.Label>
-                              </Form.Group>
-                              <Form.Group className='form-floating mb-4'>
-                                  <Form.Control
-                                        name='confirmPassword'
-                                        id="confirmPassword"
-                                        type='password'
-                                        placeholder={t('signup.mustMatch')}
-                                        autoComplete='new-password'
-                                        value={formik.values.confirmPassword}
-                                        onChange={formik.handleChange}
-                                        onBlur={formik.handleBlur}
-                                        isInvalid={(formik.touched.confirmPassword && formik.errors.confirmPassword) || signupFailed}
-                                        required
-                                    />
-                                  <Form.Control.Feedback type='invalid' tooltip>
-                                      {signupFailed ? t('signup.alreadyExists') : formik.errors.confirmPassword}
-                                  </Form.Control.Feedback>
-                                  <Form.Label htmlFor="confirmPassword">{t('signup.confirm')}</Form.Label>
-                              </Form.Group>
-                              <Button className='w-100' type='submit' variant='outline-primary'>{t('signup.submit')}</Button>
-                          </Form>
-                      </Card.Body>
-                  </Card>
-              </Col>
-          </Row>
-      </Container>
+    <Container
+      className="h-100"
+      fluid
+    >
+      <Row className="justify-content-center align-content-center h-100">
+        <Col
+          md={8}
+          xxl={6}
+        >
+          <Card className="shadow-sm">
+            <Card.Body className="p-5">
+              <Form
+                className="w-100"
+                onSubmit={formik.handleSubmit}
+              >
+                <h1 className="text-center mb-4">
+                  {t('signup.header')}
+                </h1>
+
+                <Form.Group className="form-floating mb-3">
+                  <Form.Control
+                    autoComplete="username"
+                    id="username"
+                    isInvalid={(formik.touched.username && formik.errors.username) || signupFailed}
+                    name="username"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    placeholder={t('signup.usernameConstraints')}
+                    ref={inputRef}
+                    required
+                    value={formik.values.username}
+                  />
+
+                  <Form.Label htmlFor="username">
+                    {t('signup.username')}
+                  </Form.Label>
+
+                  <Form.Control.Feedback
+                    placement="right"
+                    tooltip
+                    type="invalid"
+                  >
+                    {formik.errors.username}
+                  </Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group className="form-floating mb-3">
+                  <Form.Control
+                    aria-describedby="passwordHelpBlock"
+                    autoComplete="new-password"
+                    id="password"
+                    isInvalid={(formik.touched.password && formik.errors.password) || signupFailed}
+                    name="password"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    placeholder={t('signup.passMin')}
+                    required
+                    type="password"
+                    value={formik.values.password}
+                  />
+
+                  <Form.Control.Feedback
+                    tooltip
+                    type="invalid"
+                  >
+                    {formik.errors.password}
+                  </Form.Control.Feedback>
+
+                  <Form.Label htmlFor="password">
+                    {t('signup.password')}
+                  </Form.Label>
+                </Form.Group>
+
+                <Form.Group className="form-floating mb-4">
+                  <Form.Control
+                    autoComplete="new-password"
+                    id="confirmPassword"
+                    isInvalid={(formik.touched.confirmPassword && formik.errors.confirmPassword) || signupFailed}
+                    name="confirmPassword"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    placeholder={t('signup.mustMatch')}
+                    required
+                    type="password"
+                    value={formik.values.confirmPassword}
+                  />
+
+                  <Form.Control.Feedback
+                    tooltip
+                    type="invalid"
+                  >
+                    {signupFailed ? t('signup.alreadyExists') : formik.errors.confirmPassword}
+                  </Form.Control.Feedback>
+
+                  <Form.Label htmlFor="confirmPassword">
+                    {t('signup.confirm')}
+                  </Form.Label>
+                </Form.Group>
+
+                <Button
+                  className="w-100"
+                  type="submit"
+                  variant="outline-primary"
+                >
+                  {t('signup.submit')}
+                </Button>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

@@ -7,7 +7,7 @@ const RenderModal = () => {
   const Component = getModal(modalInfo);
   if (!Component) return null;
   return (
-      <Component />
+    <Component />
   );
 };
 

@@ -61,34 +61,64 @@ const RenameModal = () => {
   }, []);
 
   return (
-      <Modal show centered>
-          <Modal.Header closeButton onHide={() => dispatch(closeModal())}>
-              <Modal.Title>Переименовать канал</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-              <Form onSubmit={formik.handleSubmit}>
-                  <Form.Group>
-                      <Form.Control
-              id='name'
-              name='name'
-              className='mb-2'
-              ref={inputRef}
+    <Modal
+      centered
+      show
+    >
+      <Modal.Header
+        closeButton
+        onHide={() => dispatch(closeModal())}
+      >
+        <Modal.Title>
+          {t('modals.renameTitle')}
+        </Modal.Title>
+      </Modal.Header>
+
+      <Modal.Body>
+        <Form onSubmit={formik.handleSubmit}>
+          <Form.Group>
+            <Form.Control
+              className="mb-2"
+              id="name"
+              isInvalid={formik.errors.name ? formik.touched.name : null}
+              name="name"
               onChange={formik.handleChange}
+              ref={inputRef}
               value={formik.values.name}
-              isInvalid={formik.errors.name && formik.touched.name}
-              />
-                      <Form.Label htmlFor='name' className='visually-hidden'>{t('modals.channelName')}</Form.Label>
-                      <Form.Control.Feedback type="invalid">
-                          {formik.errors.name}
-                      </Form.Control.Feedback>
-                  </Form.Group>
-                  <div className='d-flex justify-content-end'>
-                      <Button variant='secondary' type='button' onClick={() => dispatch(closeModal())} className='me-2'>{t('modals.cancel')}</Button>
-                      <Button type='submit' variant='primary'>{t('modals.submit')}</Button>
-                  </div>
-              </Form>
-          </Modal.Body>
-      </Modal>
+            />
+
+            <Form.Label
+              className="visually-hidden"
+              htmlFor="name"
+            >
+              {t('modals.channelName')}
+            </Form.Label>
+
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.name}
+            </Form.Control.Feedback>
+          </Form.Group>
+
+          <div className="d-flex justify-content-end">
+            <Button
+              className="me-2"
+              onClick={() => dispatch(closeModal())}
+              type="button"
+              variant="secondary"
+            >
+              {t('modals.cancel')}
+            </Button>
+
+            <Button
+              type="submit"
+              variant="primary"
+            >
+              {t('modals.submit')}
+            </Button>
+          </div>
+        </Form>
+      </Modal.Body>
+    </Modal>
   );
 };
 

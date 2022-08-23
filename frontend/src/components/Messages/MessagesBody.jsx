@@ -7,11 +7,15 @@ const Message = ({
   username,
   body,
 }) => (
-    <div className="text-break mb-2">
-        <b>{username}</b>
-        {': '}
-        {body}
-    </div>
+  <div className="text-break mb-2">
+    <b>
+      {username}
+    </b>
+
+    {': '}
+
+    {body}
+  </div>
 );
 
 const MessagesBody = () => {
@@ -28,12 +32,20 @@ const MessagesBody = () => {
 
   console.log('channelMessages', channelMessages);
   return (
-      <div id="messages-box" className="chat-messages overflow-auto px-5 ">
-          {channelMessages && channelMessages.map((m) => (
-              <Message username={m.username} body={m.body} key={m.id} />
-          ))}
-          <span ref={scrollForMessages}></span>
-      </div>
+    <div
+      className="chat-messages overflow-auto px-5 "
+      id="messages-box"
+    >
+      {channelMessages ? channelMessages.map((m) => (
+        <Message
+          body={m.body}
+          key={m.id}
+          username={m.username}
+        />
+      )) : null}
+
+      <span ref={scrollForMessages} />
+    </div>
   );
 };
 export default MessagesBody;

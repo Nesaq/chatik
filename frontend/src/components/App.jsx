@@ -52,11 +52,13 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-      <AuthContext.Provider value={{
-        loggedIn, logIn, logOut, getAuthHeader,
-      }}>
-          {children}
-      </AuthContext.Provider>
+    // eslint-disable-next-line react/jsx-no-constructed-context-values
+    <AuthContext.Provider value={{
+      loggedIn, logIn, logOut, getAuthHeader,
+    }}
+    >
+      {children}
+    </AuthContext.Provider>
   );
 };
 
@@ -112,11 +114,13 @@ const SocketIoProvider = ({ children }) => {
 
   // const value = useMemo(())
   return (
-      <ApiContext.Provider value={{
-        addMessage, addChannel, renameChannel, removeChannel,
-      }}>
-          { children }
-      </ApiContext.Provider>
+    // eslint-disable-next-line react/jsx-no-constructed-context-values
+    <ApiContext.Provider value={{
+      addMessage, addChannel, renameChannel, removeChannel,
+    }}
+    >
+      { children }
+    </ApiContext.Provider>
   );
 };
 
@@ -126,27 +130,53 @@ const PrivateRoute = ({ children }) => {
   const location = useLocation();
 
   return (
-    auth.loggedIn ? children : <Navigate to="/login" state={{ from: location }} />
+    auth.loggedIn ? children : (
+      <Navigate
+        state={{ from: location }}
+        to="/login"
+      />
+    )
   );
 };
 
 const App = () => (
-    <SocketIoProvider>
-        <AuthProvider>
-            <Router>
-                <div className="d-flex flex-column h-100">
-                    <NavBar />
-                    <Routes>
-                        <Route path='/' element={<PrivateRoute><Chat /></PrivateRoute>} />
-                        <Route path='/login' element={<Login />} />
-                        <Route path='*' element={<NotFoundPage />} />
-                        <Route path='/signup' element={<SignupPage />} />
-                    </Routes>
-                </div>
-                <ToastContainer />
-            </Router>
-        </AuthProvider>
-    </SocketIoProvider>
+  <SocketIoProvider>
+    <AuthProvider>
+      <Router>
+        <div className="d-flex flex-column h-100">
+          <NavBar />
+
+          <Routes>
+            <Route
+              element={(
+                <PrivateRoute>
+                  <Chat />
+                </PrivateRoute>
+)}
+              path="/"
+            />
+
+            <Route
+              element={<Login />}
+              path="/login"
+            />
+
+            <Route
+              element={<NotFoundPage />}
+              path="*"
+            />
+
+            <Route
+              element={<SignupPage />}
+              path="/signup"
+            />
+          </Routes>
+        </div>
+
+        <ToastContainer />
+      </Router>
+    </AuthProvider>
+  </SocketIoProvider>
 );
 
 export default App;

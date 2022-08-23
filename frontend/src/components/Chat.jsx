@@ -27,13 +27,15 @@ const Chat = () => {
   }, [dispatch, auth]);
 
   return (
-      <Container className='h-100 my-4 overflow-hidden rounded shadow'>
-          <Row className='h-100 bg-white'>
-              <Channels />
-              <Messages />
-              <ModalsRender />
-          </Row>
-      </Container>
+    <Container className="h-100 my-4 overflow-hidden rounded shadow">
+      <Row className="h-100 bg-white">
+        <Channels />
+
+        <Messages />
+
+        <ModalsRender />
+      </Row>
+    </Container>
   );
 };
 
