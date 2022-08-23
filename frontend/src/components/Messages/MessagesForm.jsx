@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import filter from 'leo-profanity';
 import useSocket from '../../hooks/useSocket';
 
 const validationMessagesForm = yup.object().shape({
@@ -42,7 +43,7 @@ const MessagesForm = () => {
     onSubmit: (values) => {
       const { body } = values;
       const data = {
-        body,
+        body: filter.clean(body),
         channelId,
         username,
       };
