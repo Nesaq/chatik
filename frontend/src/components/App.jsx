@@ -1,5 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
-import React, { useState, useEffect } from 'react';
+import React, {
+  useState, useEffect, useCallback,
+} from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -64,29 +66,29 @@ const SocketIoProvider = ({ children }) => {
   const dispatch = useDispatch();
   const socket = io();
 
-  const addMessage = (message, connectionStatus) => {
+  const addMessage = useCallback((message, connectionStatus) => {
     socket.emit('newMessage', message, (response) => {
       connectionStatus(response);
     });
-  };
+  });
 
-  const addChannel = (channel, connectionStatus) => {
+  const addChannel = useCallback((channel, connectionStatus) => {
     socket.emit('newChannel', channel, (response) => {
       connectionStatus(response);
     });
-  };
+  });
 
-  const renameChannel = (channel, connectionStatus) => {
+  const renameChannel = useCallback((channel, connectionStatus) => {
     socket.emit('renameChannel', channel, (response) => {
       connectionStatus(response);
     });
-  };
+  });
 
-  const removeChannel = (channel, connectionStatus) => {
+  const removeChannel = useCallback((channel, connectionStatus) => {
     socket.emit('removeChannel', channel, (response) => {
       connectionStatus(response);
     });
-  };
+  });
 
   useEffect(() => {
     socket.on('newMessage', (message) => {
@@ -109,6 +111,7 @@ const SocketIoProvider = ({ children }) => {
     });
   }, []);
 
+  // const value = useMemo(())
   return (
     <ApiContext.Provider value={{
       addMessage, addChannel, renameChannel, removeChannel,
