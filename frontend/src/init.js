@@ -10,7 +10,7 @@ import App from './components/App.jsx';
 import store from './store/index.js';
 
 const rollbarConfig = {
-  accessToken: process.env.REACT_APP_TOKEN_ACCESS,
+  accessToken: process.env.REACT_APP_PROCESS_ENV_TOKEN,
   captureUncaught: true,
   captureUnhandledRejections: true,
   payload: {
