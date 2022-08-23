@@ -64,7 +64,7 @@ const Add = () => {
   return (
         <Modal show centered>
           <Modal.Header closeButton onHide={() => dispatch(closeModal())}>
-            <Modal.Title>Добавить канал</Modal.Title>
+            <Modal.Title>{t('modals.addChannel')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form onSubmit={formik.handleSubmit}>

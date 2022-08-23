@@ -47,6 +47,7 @@ export default {
       remove: 'Удалить',
       cancel: 'Отменить',
       renameTitle: 'Переименовать канал',
+      addChannel: 'Добавить канал',
     },
     messages: {
       count: {

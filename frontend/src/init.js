@@ -21,8 +21,8 @@ export default async () => {
       },
     });
   filter.clearList();
-  filter.add(filter.getDictionary('en'));
   filter.add(filter.getDictionary('ru'));
+  filter.add(filter.getDictionary('en'));
   const vdom = (
             <I18nextProvider i18n={i18n}>
                <Provider store={store}>

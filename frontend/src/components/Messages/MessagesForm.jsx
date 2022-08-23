@@ -21,8 +21,6 @@ const MessagesForm = () => {
 
   const channelId = useSelector((state) => state.channelsReducer.currentChannelId);
   const { username } = JSON.parse(localStorage.getItem('user'));
-  // console.log('username', username);
-  // console.log('channelId', channelId);
 
   const inputRef = useRef(null);
   const { addMessage } = useSocket();
