@@ -71,15 +71,15 @@ const SignupPage = () => {
     },
   });
   return (
-        <Container fluid className='h-100'>
-            <Row className='justify-content-center align-content-center h-100'>
-                <Col md={8} xxl={6}>
-                    <Card className='shadow-sm'>
-                        <Card.Body className='p-5'>
-                            <Form onSubmit={formik.handleSubmit} className='w-100'>
-                                <h1 className='text-center mb-4'>{t('signup.header')}</h1>
-                                <Form.Group className='form-floating mb-3'>
-                                    <Form.Control
+      <Container fluid className='h-100'>
+          <Row className='justify-content-center align-content-center h-100'>
+              <Col md={8} xxl={6}>
+                  <Card className='shadow-sm'>
+                      <Card.Body className='p-5'>
+                          <Form onSubmit={formik.handleSubmit} className='w-100'>
+                              <h1 className='text-center mb-4'>{t('signup.header')}</h1>
+                              <Form.Group className='form-floating mb-3'>
+                                  <Form.Control
                                         name='username'
                                         id='username'
                                         placeholder={t('signup.usernameConstraints')}
@@ -91,13 +91,13 @@ const SignupPage = () => {
                                         ref={inputRef}
                                         required
                                         />
-                                        <Form.Label htmlFor="username">{t('signup.username')}</Form.Label>
-                                        <Form.Control.Feedback type='invalid' tooltip placement='right'>
-                                            {formik.errors.username}
-                                        </Form.Control.Feedback>
-                                    </Form.Group>
-                                    <Form.Group className="form-floating mb-3">
-                                    <Form.Control
+                                  <Form.Label htmlFor="username">{t('signup.username')}</Form.Label>
+                                  <Form.Control.Feedback type='invalid' tooltip placement='right'>
+                                      {formik.errors.username}
+                                  </Form.Control.Feedback>
+                              </Form.Group>
+                              <Form.Group className="form-floating mb-3">
+                                  <Form.Control
                                         name='password'
                                         type='password'
                                         id='password'
@@ -110,13 +110,13 @@ const SignupPage = () => {
                                         isInvalid={(formik.touched.password && formik.errors.password) || signupFailed}
                                         required
                                     />
-                                   <Form.Control.Feedback type='invalid' tooltip>
-                                            {formik.errors.password}
-                                   </Form.Control.Feedback>
-                                   <Form.Label htmlFor="password">{t('signup.password')}</Form.Label>
-                                   </Form.Group>
-                                <Form.Group className='form-floating mb-4'>
-                                    <Form.Control
+                                  <Form.Control.Feedback type='invalid' tooltip>
+                                      {formik.errors.password}
+                                  </Form.Control.Feedback>
+                                  <Form.Label htmlFor="password">{t('signup.password')}</Form.Label>
+                              </Form.Group>
+                              <Form.Group className='form-floating mb-4'>
+                                  <Form.Control
                                         name='confirmPassword'
                                         id="confirmPassword"
                                         type='password'
@@ -128,18 +128,18 @@ const SignupPage = () => {
                                         isInvalid={(formik.touched.confirmPassword && formik.errors.confirmPassword) || signupFailed}
                                         required
                                     />
-                                    <Form.Control.Feedback type='invalid' tooltip>
+                                  <Form.Control.Feedback type='invalid' tooltip>
                                       {signupFailed ? t('signup.alreadyExists') : formik.errors.confirmPassword}
-                                    </Form.Control.Feedback>
-                                    <Form.Label htmlFor="confirmPassword">{t('signup.confirm')}</Form.Label>
-                                    </Form.Group>
-                            <Button className='w-100' type='submit' variant='outline-primary'>{t('signup.submit')}</Button>
-                            </Form>
-                        </Card.Body>
-                    </Card>
-                </Col>
-            </Row>
-        </Container>
+                                  </Form.Control.Feedback>
+                                  <Form.Label htmlFor="confirmPassword">{t('signup.confirm')}</Form.Label>
+                              </Form.Group>
+                              <Button className='w-100' type='submit' variant='outline-primary'>{t('signup.submit')}</Button>
+                          </Form>
+                      </Card.Body>
+                  </Card>
+              </Col>
+          </Row>
+      </Container>
   );
 };
 

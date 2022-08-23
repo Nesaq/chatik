@@ -55,10 +55,10 @@ const MessagesForm = () => {
   });
 
   return (
-    <div className="mt-auto px-5 py-3">
-      <Form onSubmit={formik.handleSubmit} className="py-1 border rounded-2">
-        <InputGroup>
-          <Form.Control
+      <div className="mt-auto px-5 py-3">
+          <Form onSubmit={formik.handleSubmit} className="py-1 border rounded-2">
+              <InputGroup>
+                  <Form.Control
             name='body'
             className='border-0 p-0 ps-2'
             placeholder={t('messages.placeholder')}
@@ -68,17 +68,17 @@ const MessagesForm = () => {
             ref={inputRef}
             disabled={formik.isSubmitting}
           />
-          <Button
+                  <Button
             type='submit'
             variant='link'
             className='btn-group-vertical'
             disabled={formik.errors.body || !formik.values.body}
             >
-          <ArrowRightSquare />
-          </Button>
-        </InputGroup>
-      </Form>
-    </div>
+                      <ArrowRightSquare />
+                  </Button>
+              </InputGroup>
+          </Form>
+      </div>
   );
 };
 export default MessagesForm;

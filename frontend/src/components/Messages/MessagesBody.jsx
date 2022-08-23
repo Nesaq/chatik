@@ -8,9 +8,9 @@ const Message = ({
   body,
 }) => (
     <div className="text-break mb-2">
-      <b>{username}</b>
-      {': '}
-      {body}
+        <b>{username}</b>
+        {': '}
+        {body}
     </div>
 );
 
@@ -29,10 +29,10 @@ const MessagesBody = () => {
   console.log('channelMessages', channelMessages);
   return (
       <div id="messages-box" className="chat-messages overflow-auto px-5 ">
-        {channelMessages && channelMessages.map((m) => (
-          <Message username={m.username} body={m.body} key={m.id} />
-        ))}
-        <span ref={scrollForMessages}></span>
+          {channelMessages && channelMessages.map((m) => (
+              <Message username={m.username} body={m.body} key={m.id} />
+          ))}
+          <span ref={scrollForMessages}></span>
       </div>
   );
 };

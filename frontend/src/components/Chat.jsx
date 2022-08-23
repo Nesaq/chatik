@@ -18,23 +18,22 @@ const Chat = () => {
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await axios.get(routes.dataPath(), { headers: auth.getAuthHeader() });
-      console.log(data); // channels, currentChannelId, messages
       const { channels, currentChannelId, messages } = data;
       dispatch(channelsActions.addChannels(channels));
       dispatch(channelsActions.setCurrentChannelId(currentChannelId));
       dispatch(messagesActions.addMessages(messages));
     };
     fetchData();
-  }, []);
+  }, [dispatch, auth]);
 
   return (
-        <Container className='h-100 my-4 overflow-hidden rounded shadow'>
-            <Row className='h-100 bg-white'>
+      <Container className='h-100 my-4 overflow-hidden rounded shadow'>
+          <Row className='h-100 bg-white'>
               <Channels />
               <Messages />
               <ModalsRender />
-            </Row>
-        </Container>
+          </Row>
+      </Container>
   );
 };
 

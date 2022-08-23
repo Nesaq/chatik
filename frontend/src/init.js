@@ -34,15 +34,15 @@ export default async () => {
   filter.add(filter.getDictionary('ru'));
   filter.add(filter.getDictionary('en'));
   const vdom = (
-        <RollbarProvider config={rollbarConfig}>
-            <ErrorBoundary>
-            <I18nextProvider i18n={i18n}>
-               <Provider store={store}>
-                <App />
-               </Provider>
-            </I18nextProvider>
-            </ErrorBoundary>
-        </RollbarProvider>
+      <RollbarProvider config={rollbarConfig}>
+          <ErrorBoundary>
+              <I18nextProvider i18n={i18n}>
+                  <Provider store={store}>
+                      <App />
+                  </Provider>
+              </I18nextProvider>
+          </ErrorBoundary>
+      </RollbarProvider>
   );
   return vdom;
 };

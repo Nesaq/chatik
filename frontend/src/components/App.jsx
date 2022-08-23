@@ -1,6 +1,5 @@
-/* eslint-disable react/react-in-jsx-scope */
 import React, {
-  useState, useEffect, useCallback,
+  useState, useEffect,
 } from 'react';
 import {
   BrowserRouter as Router,
@@ -53,11 +52,11 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{
-      loggedIn, logIn, logOut, getAuthHeader,
-    }}>
-      {children}
-    </AuthContext.Provider>
+      <AuthContext.Provider value={{
+        loggedIn, logIn, logOut, getAuthHeader,
+      }}>
+          {children}
+      </AuthContext.Provider>
   );
 };
 
@@ -66,29 +65,29 @@ const SocketIoProvider = ({ children }) => {
   const dispatch = useDispatch();
   const socket = io();
 
-  const addMessage = useCallback((message, connectionStatus) => {
+  const addMessage = (message, connectionStatus) => {
     socket.emit('newMessage', message, (response) => {
       connectionStatus(response);
     });
-  });
+  };
 
-  const addChannel = useCallback((channel, connectionStatus) => {
+  const addChannel = (channel, connectionStatus) => {
     socket.emit('newChannel', channel, (response) => {
       connectionStatus(response);
     });
-  });
+  };
 
-  const renameChannel = useCallback((channel, connectionStatus) => {
+  const renameChannel = (channel, connectionStatus) => {
     socket.emit('renameChannel', channel, (response) => {
       connectionStatus(response);
     });
-  });
+  };
 
-  const removeChannel = useCallback((channel, connectionStatus) => {
+  const removeChannel = (channel, connectionStatus) => {
     socket.emit('removeChannel', channel, (response) => {
       connectionStatus(response);
     });
-  });
+  };
 
   useEffect(() => {
     socket.on('newMessage', (message) => {
@@ -109,15 +108,15 @@ const SocketIoProvider = ({ children }) => {
     socket.on('removeChannel', (channel) => {
       dispatch(channelsActions.removeChannel(channel.id));
     });
-  }, []);
+  }, [dispatch, socket]);
 
   // const value = useMemo(())
   return (
-    <ApiContext.Provider value={{
-      addMessage, addChannel, renameChannel, removeChannel,
-    }}>
-      { children }
-    </ApiContext.Provider>
+      <ApiContext.Provider value={{
+        addMessage, addChannel, renameChannel, removeChannel,
+      }}>
+          { children }
+      </ApiContext.Provider>
   );
 };
 
@@ -132,22 +131,22 @@ const PrivateRoute = ({ children }) => {
 };
 
 const App = () => (
-  <SocketIoProvider>
-    <AuthProvider>
-    <Router>
-    <div className="d-flex flex-column h-100">
-      <NavBar />
-    <Routes>
-          <Route path='/' element={<PrivateRoute><Chat /></PrivateRoute>} />
-          <Route path='/login' element={<Login />} />
-          <Route path='*' element={<NotFoundPage />} />
-          <Route path='/signup' element={<SignupPage />} />
-    </Routes>
-    </div>
-    <ToastContainer />
-    </Router>
-    </AuthProvider>
-  </SocketIoProvider>
+    <SocketIoProvider>
+        <AuthProvider>
+            <Router>
+                <div className="d-flex flex-column h-100">
+                    <NavBar />
+                    <Routes>
+                        <Route path='/' element={<PrivateRoute><Chat /></PrivateRoute>} />
+                        <Route path='/login' element={<Login />} />
+                        <Route path='*' element={<NotFoundPage />} />
+                        <Route path='/signup' element={<SignupPage />} />
+                    </Routes>
+                </div>
+                <ToastContainer />
+            </Router>
+        </AuthProvider>
+    </SocketIoProvider>
 );
 
 export default App;

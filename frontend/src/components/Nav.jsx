@@ -9,12 +9,12 @@ const NavBar = () => {
   const auth = useAuth();
 
   return (
-        <Navbar className='shadow-sm' bg='white' expand='lg'>
-            <Container>
-                <Navbar.Brand as={Link} to='/'>Hexlet Chat</Navbar.Brand>
-                { auth.loggedIn ? <Button variant="primary" onClick={auth.logOut}>{t('logout')}</Button> : null }
-            </Container>
-        </Navbar>
+      <Navbar className='shadow-sm' bg='white' expand='lg'>
+          <Container>
+              <Navbar.Brand as={Link} to='/'>Hexlet Chat</Navbar.Brand>
+              { auth.loggedIn ? <Button variant="primary" onClick={auth.logOut}>{t('logout')}</Button> : null }
+          </Container>
+      </Navbar>
   );
 };
 

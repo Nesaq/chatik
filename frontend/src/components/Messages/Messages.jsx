@@ -5,13 +5,13 @@ import MessagesBody from './MessagesBody.jsx';
 import MessagesFooter from './MessagesForm.jsx';
 
 const Messages = () => (
-        <Col className="p-0 h-100">
+    <Col className="p-0 h-100">
         <div className="d-flex flex-column h-100">
-          <MessagesHeader />
-          <MessagesBody />
-          <MessagesFooter />
+            <MessagesHeader />
+            <MessagesBody />
+            <MessagesFooter />
         </div>
-      </Col>
+    </Col>
 );
 
 export default Messages;

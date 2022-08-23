@@ -62,14 +62,14 @@ const Add = () => {
   }, []);
 
   return (
-        <Modal show centered>
+      <Modal show centered>
           <Modal.Header closeButton onHide={() => dispatch(closeModal())}>
-            <Modal.Title>{t('modals.addChannel')}</Modal.Title>
+              <Modal.Title>{t('modals.addChannel')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form onSubmit={formik.handleSubmit}>
-              <Form.Group>
-                <Form.Control
+              <Form onSubmit={formik.handleSubmit}>
+                  <Form.Group>
+                      <Form.Control
                   name='name'
                   id='name'
                   className='mb-2'
@@ -78,16 +78,16 @@ const Add = () => {
                   value={formik.values.name}
                   isInvalid={formik.errors.name && formik.touched.name}
                   />
-                  <Form.Label htmlFor='name' className='visually-hidden'>{t('modals.channelName')}</Form.Label>
-                  <Form.Control.Feedback type="invalid">
-                    {formik.errors.name}
-                  </Form.Control.Feedback>
-              </Form.Group>
-              <div className='d-flex justify-content-end'>
-                <Button variant='secondary' type='button' onClick={() => dispatch(closeModal())} className='me-2'>{t('modals.cancel')}</Button>
-                <Button type='submit' variant='primary'>{t('modals.submit')}</Button>
-              </div>
-            </Form>
+                      <Form.Label htmlFor='name' className='visually-hidden'>{t('modals.channelName')}</Form.Label>
+                      <Form.Control.Feedback type="invalid">
+                          {formik.errors.name}
+                      </Form.Control.Feedback>
+                  </Form.Group>
+                  <div className='d-flex justify-content-end'>
+                      <Button variant='secondary' type='button' onClick={() => dispatch(closeModal())} className='me-2'>{t('modals.cancel')}</Button>
+                      <Button type='submit' variant='primary'>{t('modals.submit')}</Button>
+                  </div>
+              </Form>
           </Modal.Body>
       </Modal>
   );
