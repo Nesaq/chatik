@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 import ApiContext from '../context/apiContext.js';
@@ -8,29 +8,30 @@ import { actions as channelsActions } from '../store/channelsSlice.js';
 // eslint-disable-next-line react/prop-types
 const ApiProvider = ({ children, socket }) => {
   const dispatch = useDispatch();
-  const addMessage = (message, connectionStatus) => {
+
+  const addMessage = useCallback((message, connectionStatus) => {
     socket.emit('newMessage', message, (response) => {
       connectionStatus(response);
     });
-  };
+  }, [socket]);
 
-  const addChannel = (channel, connectionStatus) => {
+  const addChannel = useCallback((channel, connectionStatus) => {
     socket.emit('newChannel', channel, (response) => {
       connectionStatus(response);
     });
-  };
+  }, [socket]);
 
-  const renameChannel = (channel, connectionStatus) => {
+  const renameChannel = useCallback((channel, connectionStatus) => {
     socket.emit('renameChannel', channel, (response) => {
       connectionStatus(response);
     });
-  };
+  }, [socket]);
 
-  const removeChannel = (channel, connectionStatus) => {
+  const removeChannel = useCallback((channel, connectionStatus) => {
     socket.emit('removeChannel', channel, (response) => {
       connectionStatus(response);
     });
-  };
+  }, [socket]);
 
   useEffect(() => {
     socket.on('newMessage', (message) => {
@@ -53,13 +54,12 @@ const ApiProvider = ({ children, socket }) => {
     });
   }, [dispatch, socket]);
 
-  // const value = useMemo(())
+  const value = useMemo(() => ({
+    addMessage, addChannel, renameChannel, removeChannel,
+  }), [addMessage, addChannel, renameChannel, removeChannel]);
+
   return (
-  // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <ApiContext.Provider value={{
-      addMessage, addChannel, renameChannel, removeChannel,
-    }}
-    >
+    <ApiContext.Provider value={value}>
       { children }
     </ApiContext.Provider>
   );
