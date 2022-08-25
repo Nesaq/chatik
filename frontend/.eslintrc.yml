@@ -2,7 +2,7 @@ env:
   browser: true
   es2021: true
 extends:
-  - airbnb-base # add base for HEROKU
+  - airbnb-base # add base for HEROKU Deploy and remove base if u want to see lint correction
   - plugin:react/recommended
 overrides: []
 parserOptions:

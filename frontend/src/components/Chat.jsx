@@ -24,7 +24,7 @@ const Chat = () => {
       dispatch(messagesActions.addMessages(messages));
     };
     fetchData();
-  }, [dispatch, auth]);
+  }, [dispatch]);
 
   return (
     <Container className="h-100 my-4 overflow-hidden rounded shadow">

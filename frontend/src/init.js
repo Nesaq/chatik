@@ -9,6 +9,7 @@ import ru from './locales/ru.js';
 import App from './components/App.jsx';
 import store from './store/index.js';
 import ApiProvider from './providers/ApiProvider.jsx';
+import AuthProvider from './providers/AuthProvider.jsx';
 
 const rollbarConfig = {
   accessToken: process.env.REACT_APP_PROCESS_ENV_TOKEN,
@@ -40,7 +41,9 @@ export default async (socket) => {
         <ErrorBoundary>
           <ApiProvider socket={socket}>
             <I18nextProvider i18n={i18n}>
-              <App />
+              <AuthProvider>
+                <App />
+              </AuthProvider>
             </I18nextProvider>
           </ApiProvider>
         </ErrorBoundary>
