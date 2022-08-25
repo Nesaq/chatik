@@ -20,7 +20,7 @@ const channelsSlice = createSlice({
     removeChannel: (state, action) => {
       if (state.currentChannelId === action.payload) {
         // eslint-disable-next-line no-undef
-        state.currentChannelId = state.defaultChannel;
+        state.currentChannelId = state.defaultChannelId;
       }
       channelsAdapter.removeOne(state, action.payload);
     },

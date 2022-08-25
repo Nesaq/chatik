@@ -13,13 +13,10 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import NotFoundPage from './NotFoundPage.jsx';
 import Login from './Login.jsx';
-// import AuthContext from '../context/index.js';
 import useAuth from '../hooks/index.js';
 import Chat from './Chat.jsx';
 import NavBar from './Nav.jsx';
 import SignupPage from './Registration.jsx';
-
-// eslint-disable-next-line react/prop-types
 
 // eslint-disable-next-line react/prop-types
 const PrivateRoute = ({ children }) => {
