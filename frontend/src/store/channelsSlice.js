@@ -1,5 +1,17 @@
 /* eslint-disable no-param-reassign */
-import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
+import { createSlice, createEntityAdapter, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import routes from '../routes.js';
+
+export const fetchData = createAsyncThunk(
+  'chat/fetchData',
+  async (options = {}) => {
+    const response = await axios.get(routes.dataPath(), options);
+    console.log('RESPONSE DATA', response.data);
+    // const { channels, currentChannelId, messages } = data;
+    return response.data;
+  },
+);
 
 const channelsAdapter = createEntityAdapter();
 const initialState = channelsAdapter.getInitialState({
@@ -12,7 +24,6 @@ const channelsSlice = createSlice({
   initialState,
   reducers: {
     addChannel: channelsAdapter.addOne,
-    addChannels: channelsAdapter.addMany,
     renameChannel: channelsAdapter.updateOne,
     setCurrentChannelId: (state, { payload }) => {
       state.currentChannelId = payload;
@@ -24,6 +35,15 @@ const channelsSlice = createSlice({
       }
       channelsAdapter.removeOne(state, action.payload);
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchData.fulfilled, (state, { payload }) => {
+        // console.log(state);
+        console.log('FETCH', payload.channels);
+        channelsAdapter.addMany(state, payload.channels);
+        state.currentChannelId = payload.currentChannelId;
+      });
   },
 });
 

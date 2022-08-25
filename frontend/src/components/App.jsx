@@ -13,7 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import NotFoundPage from './NotFoundPage.jsx';
 import Login from './Login.jsx';
-import useAuth from '../hooks/index.js';
+import useAuth from '../hooks/useAuth.js';
 import Chat from './Chat.jsx';
 import NavBar from './Nav.jsx';
 import SignupPage from './Registration.jsx';

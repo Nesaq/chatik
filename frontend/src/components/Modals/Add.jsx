@@ -10,14 +10,14 @@ import { toast } from 'react-toastify';
 
 import { selectors as channelsSelectors } from '../../store/channelsSlice.js';
 import { actions as channelsActions } from '../../store/channelsSlice.js';
-import useSocket from '../../hooks/useSocket.js';
 import { closeModal } from '../../store/modalsSlice.js';
+import useApi from '../../hooks/useApi.js';
 
 const Add = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const inputRef = useRef(null);
-  const { addChannel } = useSocket();
+  const { addChannel } = useApi();
 
   const channels = useSelector(channelsSelectors.selectAll);
 

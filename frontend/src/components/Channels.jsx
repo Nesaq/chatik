@@ -21,7 +21,7 @@ const Channels = () => {
   const modalHandlerAdd = () => {
     dispatch(openModal({
       type: 'adding',
-      item: null,
+      channelProps: null,
     }));
   };
 
@@ -74,11 +74,11 @@ const Channels = () => {
               ) : null }
 
               <Dropdown.Menu>
-                <Dropdown.Item onClick={() => dispatch(openModal({ type: 'removing', item: channel }))}>
+                <Dropdown.Item onClick={() => dispatch(openModal({ type: 'removing', channelProps: channel }))}>
                   {t('channels.remove')}
                 </Dropdown.Item>
 
-                <Dropdown.Item onClick={() => dispatch(openModal({ type: 'renaming', item: channel }))}>
+                <Dropdown.Item onClick={() => dispatch(openModal({ type: 'renaming', channelProps: channel }))}>
                   {t('channels.rename')}
                 </Dropdown.Item>
               </Dropdown.Menu>

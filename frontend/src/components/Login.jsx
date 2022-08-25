@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
-import useAuth from '../hooks/index.js';
+import useAuth from '../hooks/useAuth.js';
 import routes from '../routes.js';
 import avatarImages from '../assets/avatar.jpg';
 

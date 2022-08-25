@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import routes from '../routes.js';
-import useAuth from '../hooks/index.js';
+import useAuth from '../hooks/useAuth.js';
 
 const SignupPage = () => {
   const { t } = useTranslation();

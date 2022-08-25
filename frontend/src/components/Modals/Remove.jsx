@@ -5,14 +5,14 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import { closeModal } from '../../store/modalsSlice.js';
-import useSocket from '../../hooks/useSocket.js';
+import useApi from '../../hooks/useApi.js';
 
 const Remove = () => {
   const { t } = useTranslation();
 
-  const { removeChannel } = useSocket();
+  const { removeChannel } = useApi();
   const dispatch = useDispatch();
-  const currentChannel = useSelector((state) => state.modalsReducer.item);
+  const currentChannel = useSelector((state) => state.modalsReducer.channelProps);
   console.log('currentChannelREMOVE', currentChannel);
 
   const responseCheck = (response) => {

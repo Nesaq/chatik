@@ -7,17 +7,17 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import { selectors as channelsSelectors } from '../../store/channelsSlice.js';
-import useSocket from '../../hooks/useSocket.js';
 import { closeModal } from '../../store/modalsSlice.js';
+import useApi from '../../hooks/useApi.js';
 
 const RenameModal = () => {
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
   const inputRef = useRef(null);
-  const { renameChannel } = useSocket();
+  const { renameChannel } = useApi();
   const channels = useSelector(channelsSelectors.selectAll);
-  const currentChannel = useSelector((state) => state.modalsReducer.item);
+  const currentChannel = useSelector((state) => state.modalsReducer.channelProps);
 
   const modalRenameValidation = yup.object().shape({
     name: yup

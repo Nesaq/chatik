@@ -4,7 +4,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   type: null,
-  item: null,
+  channelProps: null,
 };
 
 const modalSlice = createSlice({
@@ -14,11 +14,11 @@ const modalSlice = createSlice({
     openModal: (state, { payload }) => {
       console.log('payload', payload);
       state.type = payload.type;
-      state.item = payload.item;
+      state.channelProps = payload.channelProps;
     },
     closeModal: (state) => {
       state.type = null;
-      state.item = null;
+      state.channelProps = null;
     },
   },
 });

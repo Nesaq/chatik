@@ -7,7 +7,7 @@ import { ArrowRightSquare } from 'react-bootstrap-icons';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import filter from 'leo-profanity';
-import useSocket from '../../hooks/useSocket';
+import useApi from '../../hooks/useApi.js';
 
 const validationMessagesForm = yup.object().shape({
   body: yup
@@ -23,7 +23,7 @@ const MessagesForm = () => {
   const { username } = JSON.parse(localStorage.getItem('user'));
 
   const inputRef = useRef(null);
-  const { addMessage } = useSocket();
+  const { addMessage } = useApi();
 
   const responseCheck = (response) => {
     if (response.status === 'ok') {
