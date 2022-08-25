@@ -8,6 +8,7 @@ import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import ru from './locales/ru.js';
 import App from './components/App.jsx';
 import store from './store/index.js';
+import ApiProvider from './providers/ApiProvider.jsx';
 
 const rollbarConfig = {
   accessToken: process.env.REACT_APP_PROCESS_ENV_TOKEN,
@@ -18,7 +19,7 @@ const rollbarConfig = {
   },
 };
 
-export default async () => {
+export default async (socket) => {
   const i18n = i18next.createInstance();
 
   await i18n
@@ -34,15 +35,18 @@ export default async () => {
   filter.add(filter.getDictionary('ru'));
   filter.add(filter.getDictionary('en'));
   const vdom = (
-    <RollbarProvider config={rollbarConfig}>
-      <ErrorBoundary>
-        <I18nextProvider i18n={i18n}>
-          <Provider store={store}>
-            <App />
-          </Provider>
-        </I18nextProvider>
-      </ErrorBoundary>
-    </RollbarProvider>
+    <Provider store={store}>
+      <RollbarProvider config={rollbarConfig}>
+        <ErrorBoundary>
+          <ApiProvider socket={socket}>
+            <I18nextProvider i18n={i18n}>
+              <App />
+            </I18nextProvider>
+          </ApiProvider>
+        </ErrorBoundary>
+      </RollbarProvider>
+    </Provider>
+
   );
   return vdom;
 };

@@ -1,5 +1,5 @@
 import React, {
-  useState, useEffect,
+  useState,
 } from 'react';
 import {
   BrowserRouter as Router,
@@ -9,14 +9,14 @@ import {
   useLocation,
 
 } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { io } from 'socket.io-client';
+// import { useDispatch } from 'react-redux';
+// import { io } from 'socket.io-client';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { actions as messagesActions } from '../store/messagesSlice.js';
-import { actions as channelsActions } from '../store/channelsSlice.js';
-import ApiContext from '../context/apiContext.js';
+// import { actions as messagesActions } from '../store/messagesSlice.js';
+// import { actions as channelsActions } from '../store/channelsSlice.js';
+// import ApiContext from '../context/apiContext.js';
 import NotFoundPage from './NotFoundPage.jsx';
 import Login from './Login.jsx';
 import AuthContext from '../context/index.js';
@@ -33,9 +33,8 @@ const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(currentUser ? { username: currentUser.username } : null);
 
   const getAuthHeader = () => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user && user.token) {
-      return { Authorization: `Bearer ${user.token}` };
+    if (currentUser && currentUser.token) {
+      return { Authorization: `Bearer ${currentUser.token}` };
     }
     return {};
   };
@@ -63,68 +62,6 @@ const AuthProvider = ({ children }) => {
 };
 
 // eslint-disable-next-line react/prop-types
-const SocketIoProvider = ({ children }) => {
-  const dispatch = useDispatch();
-  const socket = io();
-
-  const addMessage = (message, connectionStatus) => {
-    socket.emit('newMessage', message, (response) => {
-      connectionStatus(response);
-    });
-  };
-
-  const addChannel = (channel, connectionStatus) => {
-    socket.emit('newChannel', channel, (response) => {
-      connectionStatus(response);
-    });
-  };
-
-  const renameChannel = (channel, connectionStatus) => {
-    socket.emit('renameChannel', channel, (response) => {
-      connectionStatus(response);
-    });
-  };
-
-  const removeChannel = (channel, connectionStatus) => {
-    socket.emit('removeChannel', channel, (response) => {
-      connectionStatus(response);
-    });
-  };
-
-  useEffect(() => {
-    socket.on('newMessage', (message) => {
-      dispatch(messagesActions.addMessage(message));
-    });
-
-    socket.on('newChannel', (channel) => {
-      dispatch(channelsActions.addChannel(channel));
-    });
-
-    socket.on('renameChannel', (channel) => {
-      dispatch(channelsActions.renameChannel({
-        id: channel.id,
-        changes: { name: channel.name },
-      }));
-    });
-
-    socket.on('removeChannel', (channel) => {
-      dispatch(channelsActions.removeChannel(channel.id));
-    });
-  }, [dispatch, socket]);
-
-  // const value = useMemo(())
-  return (
-    // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <ApiContext.Provider value={{
-      addMessage, addChannel, renameChannel, removeChannel,
-    }}
-    >
-      { children }
-    </ApiContext.Provider>
-  );
-};
-
-// eslint-disable-next-line react/prop-types
 const PrivateRoute = ({ children }) => {
   const auth = useAuth();
   const location = useLocation();
@@ -140,43 +77,41 @@ const PrivateRoute = ({ children }) => {
 };
 
 const App = () => (
-  <SocketIoProvider>
-    <AuthProvider>
-      <Router>
-        <div className="d-flex flex-column h-100">
-          <NavBar />
+  <AuthProvider>
+    <Router>
+      <div className="d-flex flex-column h-100">
+        <NavBar />
 
-          <Routes>
-            <Route
-              element={(
-                <PrivateRoute>
-                  <Chat />
-                </PrivateRoute>
+        <Routes>
+          <Route
+            element={(
+              <PrivateRoute>
+                <Chat />
+              </PrivateRoute>
 )}
-              path="/"
-            />
+            path="/"
+          />
 
-            <Route
-              element={<Login />}
-              path="/login"
-            />
+          <Route
+            element={<Login />}
+            path="/login"
+          />
 
-            <Route
-              element={<NotFoundPage />}
-              path="*"
-            />
+          <Route
+            element={<NotFoundPage />}
+            path="*"
+          />
 
-            <Route
-              element={<SignupPage />}
-              path="/signup"
-            />
-          </Routes>
-        </div>
+          <Route
+            element={<SignupPage />}
+            path="/signup"
+          />
+        </Routes>
+      </div>
 
-        <ToastContainer />
-      </Router>
-    </AuthProvider>
-  </SocketIoProvider>
+      <ToastContainer />
+    </Router>
+  </AuthProvider>
 );
 
 export default App;

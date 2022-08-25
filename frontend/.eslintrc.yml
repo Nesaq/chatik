@@ -2,7 +2,7 @@ env:
   browser: true
   es2021: true
 extends:
-  - airbnb-base
+  - airbnb
   - plugin:react/recommended
 overrides: []
 parserOptions:
