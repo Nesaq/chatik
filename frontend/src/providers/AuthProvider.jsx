@@ -18,7 +18,6 @@ const AuthProvider = ({ children }) => {
   };
 
   const logIn = (data) => {
-    // console.log('logIN DATA', data);
     localStorage.setItem('user', JSON.stringify(data));
     setLoggedIn({ username: data.username });
   };

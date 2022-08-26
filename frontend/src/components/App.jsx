@@ -49,7 +49,7 @@ const App = () => (
     <div className="d-flex flex-column h-100">
       <NavBar />
       <Routes>
-        <Route path="signup" element={<AuthRoute><SignupPage /></AuthRoute>} />
+        <Route path="/signup" element={<AuthRoute><SignupPage /></AuthRoute>} />
         <Route path="/login" element={<AuthRoute><Login /></AuthRoute>} />
         <Route path="/" element={<PrivateRoute><Chat /></PrivateRoute>} />
         <Route path="*" element={<NotFoundPage />} />
