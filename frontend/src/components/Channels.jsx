@@ -8,16 +8,16 @@ import {
   Nav, Col, Button, ButtonGroup, Dropdown,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { selectors as channelsSelectors } from '../store/channelsSlice.js';
+import { getChannels, getCurrentChannelId } from '../store/selectors.js';
+
 import { actions as channelsActions } from '../store/channelsSlice.js';
 import { openModal } from '../store/modalsSlice.js';
 
 const Channels = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const channels = useSelector(channelsSelectors.selectAll);
-  const currentChannelId = useSelector((state) => state.channelsReducer.currentChannelId);
-
+  const channels = useSelector(getChannels);
+  const currentChannelId = useSelector(getCurrentChannelId);
   const modalHandlerAdd = () => {
     dispatch(openModal({
       type: 'adding',

@@ -6,8 +6,9 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
-import { selectors as channelsSelectors } from '../../store/channelsSlice.js';
+// import { selectors as channelsSelectors } from '../../store/channelsSlice.js';
 import { closeModal } from '../../store/modalsSlice.js';
+import { getChannels, getModalProps } from '../../store/selectors.js';
 import useApi from '../../hooks/useApi.js';
 
 const RenameModal = () => {
@@ -16,11 +17,9 @@ const RenameModal = () => {
   const dispatch = useDispatch();
   const inputRef = useRef(null);
   const { renameChannel } = useApi();
-  const channels = useSelector(channelsSelectors.selectAll);
-  const currentChannel = useSelector((state) => state.modalsReducer.channelProps);
+  const channels = useSelector(getChannels);
+  const currentChannel = useSelector(getModalProps);
   const [show, setShow] = useState(true);
-
-  // const show = useSelector((state) => state.modalsReducer.show);
 
   const modalRenameValidation = yup.object().shape({
     name: yup

@@ -6,13 +6,14 @@ import { toast } from 'react-toastify';
 
 import { closeModal } from '../../store/modalsSlice.js';
 import useApi from '../../hooks/useApi.js';
+import { getModalProps } from '../../store/selectors.js';
 
 const Remove = () => {
   const { t } = useTranslation();
 
   const { removeChannel } = useApi();
   const dispatch = useDispatch();
-  const currentChannel = useSelector((state) => state.modalsReducer.channelProps);
+  const currentChannel = useSelector(getModalProps);
   console.log('currentChannelREMOVE', currentChannel);
   const [show, setShow] = useState(true);
 

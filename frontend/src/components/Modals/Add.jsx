@@ -8,7 +8,9 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
-import { selectors as channelsSelectors } from '../../store/channelsSlice.js';
+// import { selectors as channelsSelectors } from '../../store/channelsSlice.js';
+import { getChannels } from '../../store/selectors.js';
+
 import { actions as channelsActions } from '../../store/channelsSlice.js';
 import { closeModal } from '../../store/modalsSlice.js';
 import useApi from '../../hooks/useApi.js';
@@ -18,8 +20,9 @@ const Add = () => {
   const dispatch = useDispatch();
   const inputRef = useRef(null);
   const { addChannel } = useApi();
-  const channels = useSelector(channelsSelectors.selectAll);
+  // const channels = useSelector(channelsSelectors.selectAll);
   const [show, setShow] = useState(true);
+  const channels = useSelector(getChannels);
 
   const modalAddValidation = yup.object().shape({
     name: yup
