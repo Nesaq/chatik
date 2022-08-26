@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import React, { useRef, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import * as yup from 'yup';
 import axios from 'axios';
 import {
@@ -179,6 +179,20 @@ const SignupPage = () => {
                 </Button>
               </Form>
             </Card.Body>
+            <Card.Footer
+              className="p-4"
+            >
+              <div className="text-center">
+                <span>{t('registered')}</span>
+                <Link
+                  to="/login"
+                  variant="link"
+                  className="mx-2 link-primary"
+                >
+                  {t('logIn')}
+                </Link>
+              </div>
+            </Card.Footer>
           </Card>
         </Col>
       </Row>

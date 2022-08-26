@@ -62,5 +62,7 @@ export default {
     networkError: 'Ошибка соединения',
     networkOkStatus: 'Успешно',
     loadigNetworkd: 'Загрузка',
+    registered: 'Уже зарегистрирован?',
+    logIn: 'Войти',
   },
 };
