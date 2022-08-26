@@ -25,7 +25,7 @@ const Chat = () => {
     ? (
       <div className="h-100 d-flex justify-content-center align-items-center">
         <Spinner variant="warning" animation="border" role="status">
-          <span className="visually-hidden">{t('loadigNetworkd')}</span>
+          <span className="visually-hidden">{t('loadigNetwork')}</span>
         </Spinner>
       </div>
     )

@@ -18,7 +18,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const logIn = (data) => {
-    console.log('logIN DATA', data);
+    // console.log('logIN DATA', data);
     localStorage.setItem('user', JSON.stringify(data));
     setLoggedIn({ username: data.username });
   };
@@ -27,10 +27,6 @@ const AuthProvider = ({ children }) => {
     localStorage.removeItem('user');
     setLoggedIn(false);
   };
-
-  // const value = useMemo(() => ({
-  //   loggedIn, logIn, logOut, getAuthHeader,
-  // }), [loggedIn, logIn, logOut, getAuthHeader]);
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
