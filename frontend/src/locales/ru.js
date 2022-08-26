@@ -61,5 +61,6 @@ export default {
     },
     networkError: 'Ошибка соединения',
     networkOkStatus: 'Успешно',
+    loadigNetworkd: 'Загрузка',
   },
 };

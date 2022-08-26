@@ -12,12 +12,12 @@ const messagesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchData.fulfilled, (state, action) => {
-        console.log(action);
-        messagesAdapter.addMany(state, action.payload.messages);
+      .addCase(fetchData.fulfilled, (state, { payload }) => {
+        console.log(payload);
+        messagesAdapter.addMany(state, payload.messages);
       })
       .addCase(actionChannels.removeChannel, (state, action) => {
-        console.log('action Remove Channe', action.payload);
+        console.log('action Remove Channel', action);
         // console.log('STATE REMOVE CHANNEL', state);
         // console.log(action.payload);
         const removeId = action.payload;
