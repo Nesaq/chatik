@@ -19,7 +19,6 @@ const Add = () => {
   const inputRef = useRef(null);
   const { addChannel } = useApi();
   const channels = useSelector(channelsSelectors.selectAll);
-  // const show = useSelector((state) => state.modalsReducers.show);
   const [show, setShow] = useState(true);
 
   const modalAddValidation = yup.object().shape({
