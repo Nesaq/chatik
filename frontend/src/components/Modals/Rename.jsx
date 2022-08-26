@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 import * as yup from 'yup';
@@ -18,6 +18,9 @@ const RenameModal = () => {
   const { renameChannel } = useApi();
   const channels = useSelector(channelsSelectors.selectAll);
   const currentChannel = useSelector((state) => state.modalsReducer.channelProps);
+  const [show, setShow] = useState(true);
+
+  // const show = useSelector((state) => state.modalsReducer.show);
 
   const modalRenameValidation = yup.object().shape({
     name: yup
@@ -48,11 +51,13 @@ const RenameModal = () => {
     },
     validationSchema: modalRenameValidation,
     onSubmit: (values) => {
+      setShow(false);
       const { name } = values;
       renameChannel({
         id: currentChannel.id,
         name,
       }, responseCheck);
+      setShow(true);
     },
   });
 
@@ -63,11 +68,11 @@ const RenameModal = () => {
   return (
     <Modal
       centered
-      show
+      show={show}
+      onHide={() => dispatch(closeModal())}
     >
       <Modal.Header
         closeButton
-        onHide={() => dispatch(closeModal())}
       >
         <Modal.Title>
           {t('modals.renameTitle')}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +14,7 @@ const Remove = () => {
   const dispatch = useDispatch();
   const currentChannel = useSelector((state) => state.modalsReducer.channelProps);
   console.log('currentChannelREMOVE', currentChannel);
+  const [show, setShow] = useState(true);
 
   const responseCheck = (response) => {
     if (response.status === 'ok') {
@@ -29,18 +30,20 @@ const Remove = () => {
   };
 
   const deleteChannel = (e) => {
+    setShow(false);
     e.preventDefault();
     removeChannel(currentChannel, responseCheck);
+    setShow(true);
   };
 
   return (
     <Modal
       centered
-      show
+      show={show}
+      onHide={() => dispatch(closeModal())}
     >
       <Modal.Header
         closeButton
-        onHide={() => dispatch(closeModal())}
       >
         <Modal.Title>
           {t('modals.title')}

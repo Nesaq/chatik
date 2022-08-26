@@ -1,6 +1,6 @@
 /* eslint-disable import/no-duplicates */
 /* eslint-disable react/prop-types */
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 import * as yup from 'yup';
@@ -18,8 +18,9 @@ const Add = () => {
   const dispatch = useDispatch();
   const inputRef = useRef(null);
   const { addChannel } = useApi();
-
   const channels = useSelector(channelsSelectors.selectAll);
+  // const show = useSelector((state) => state.modalsReducers.show);
+  const [show, setShow] = useState(true);
 
   const modalAddValidation = yup.object().shape({
     name: yup
@@ -52,8 +53,10 @@ const Add = () => {
     },
     validationSchema: modalAddValidation,
     onSubmit: (values) => {
+      setShow(false);
       const { name } = values;
       addChannel({ name }, responseCheck);
+      setShow(true);
     },
   });
 
@@ -64,11 +67,11 @@ const Add = () => {
   return (
     <Modal
       centered
-      show
+      show={show}
+      onHide={() => dispatch(closeModal())}
     >
       <Modal.Header
         closeButton
-        onHide={() => dispatch(closeModal())}
       >
         <Modal.Title>
           {t('modals.addChannel')}
