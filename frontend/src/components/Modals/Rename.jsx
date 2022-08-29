@@ -25,10 +25,10 @@ const RenameModal = () => {
     name: yup
       .string()
       .trim()
-      .min(3, t('modals.modalConstraints'))
-      .max(20, t('modals.modalConstraints'))
-      .notOneOf(channels.map((channel) => channel.name), t('modals.mustBeUnique'))
-      .required(t('modals.required')),
+      .min(3, 'modals.modalConstraints')
+      .max(20, 'modals.modalConstraints')
+      .notOneOf(channels.map((channel) => channel.name), 'modals.mustBeUnique')
+      .required('modals.required'),
   });
 
   const responseCheck = (response) => {
@@ -99,7 +99,7 @@ const RenameModal = () => {
             </Form.Label>
 
             <Form.Control.Feedback type="invalid">
-              {formik.errors.name}
+              {formik.errors.name ? t(formik.errors.name) : null}
             </Form.Control.Feedback>
           </Form.Group>
 
