@@ -33,14 +33,10 @@ const RenameModal = () => {
 
   const responseCheck = (response) => {
     if (response.status === 'ok') {
-      toast.success(t('channels.renamed'), {
-        position: 'top-right',
-      });
+      toast.success(t('channels.renamed'));
       dispatch(closeModal());
     } else {
-      toast.error(t('networkError'), {
-        position: 'top-right',
-      });
+      toast.error(t('networkError'));
     }
   };
 

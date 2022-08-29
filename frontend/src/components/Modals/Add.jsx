@@ -31,16 +31,12 @@ const Add = () => {
 
   const responseCheck = (response) => {
     if (response.status === 'ok') {
-      toast.success(t('channels.created'), {
-        position: 'top-right',
-      });
+      toast.success(t('channels.created'));
       const { id } = response.data;
       dispatch(channelsActions.setCurrentChannelId(id));
       dispatch(closeModal());
     } else {
-      toast.error(t('networkError'), {
-        position: 'top-right',
-      });
+      toast.error(t('networkError'));
     }
   };
 

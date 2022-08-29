@@ -19,14 +19,10 @@ const Remove = () => {
 
   const responseCheck = (response) => {
     if (response.status === 'ok') {
-      toast.success(t('channels.removed'), {
-        position: 'top-right',
-      });
+      toast.success(t('channels.removed'));
       dispatch(closeModal());
     } else {
-      toast.error(t('networkError'), {
-        position: 'top-right',
-      });
+      toast.error(t('networkError'));
     }
   };
 

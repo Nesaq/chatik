@@ -43,9 +43,7 @@ const Login = () => {
           setAuthFailed(true);
           inputRef.current?.select();
         } else {
-          toast.error(t('networkError'), {
-            position: 'top-right',
-          });
+          toast.error(t('networkError'));
           throw err;
         }
       }

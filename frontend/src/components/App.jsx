@@ -41,7 +41,9 @@ const App = () => (
       </Routes>
     </div>
 
-    <ToastContainer />
+    <ToastContainer
+    position='top-right'
+    />
   </Router>
 );
 
