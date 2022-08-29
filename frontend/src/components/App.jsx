@@ -42,7 +42,7 @@ const App = () => (
     </div>
 
     <ToastContainer
-    position='top-right'
+      position="top-right"
     />
   </Router>
 );
