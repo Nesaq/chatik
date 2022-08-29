@@ -10,3 +10,5 @@ export const getCurrentChannelId = (state) => state.channelsReducer.currentChann
 export const getModalInfo = (state) => state.modalsReducer.type;
 
 export const getModalProps = (state) => state.modalsReducer.channelProps; // REMOVE MODAL
+
+export const getModalStatus = (state) => state.modalsReducer.show;

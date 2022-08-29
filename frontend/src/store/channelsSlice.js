@@ -7,7 +7,6 @@ export const fetchData = createAsyncThunk(
   'chat/fetchData',
   async (options = {}) => {
     const response = await axios.get(routes.dataPath(), options);
-    console.log('RESPONSE DATA', response.data);
     // const { channels, currentChannelId, messages } = data;
     return response.data;
   },

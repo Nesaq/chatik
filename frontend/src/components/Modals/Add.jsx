@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 import * as yup from 'yup';
@@ -6,7 +6,7 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
-import { getChannels } from '../../store/selectors.js';
+import { getChannels, getModalStatus } from '../../store/selectors.js';
 
 import { actions as channelsActions } from '../../store/channelsSlice.js';
 import { closeModal } from '../../store/modalsSlice.js';
@@ -17,8 +17,8 @@ const Add = () => {
   const dispatch = useDispatch();
   const inputRef = useRef(null);
   const { addChannel } = useApi();
-  const [show, setShow] = useState(true);
   const channels = useSelector(getChannels);
+  const show = useSelector(getModalStatus);
 
   const modalAddValidation = yup.object().shape({
     name: yup
@@ -51,10 +51,8 @@ const Add = () => {
     },
     validationSchema: modalAddValidation,
     onSubmit: (values) => {
-      setShow(false);
       const { name } = values;
       addChannel({ name }, responseCheck);
-      setShow(true);
     },
   });
 
