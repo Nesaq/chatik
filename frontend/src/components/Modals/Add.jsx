@@ -6,10 +6,9 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
-import { getChannels, getModalStatus } from '../../store/selectors.js';
+import { getChannels, actions as channelsActions } from '../../store/channelsSlice.js';
+import { closeModal, getModalStatus } from '../../store/modalsSlice.js';
 
-import { actions as channelsActions } from '../../store/channelsSlice.js';
-import { closeModal } from '../../store/modalsSlice.js';
 import useApi from '../../hooks/useApi.js';
 
 const Add = () => {

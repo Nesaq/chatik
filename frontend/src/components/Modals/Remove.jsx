@@ -4,9 +4,10 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
-import { closeModal } from '../../store/modalsSlice.js';
+// import { closeModal } from '../../store/modalsSlice.js';
 import useApi from '../../hooks/useApi.js';
-import { getModalProps, getModalStatus } from '../../store/selectors.js';
+// import { getModalProps, getModalStatus } from '../../store/selectors.js';
+import { closeModal, getModalProps, getModalStatus } from '../../store/modalsSlice.js';
 
 const Remove = () => {
   const { t } = useTranslation();

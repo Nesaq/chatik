@@ -7,7 +7,6 @@ export const fetchData = createAsyncThunk(
   'chat/fetchData',
   async (options = {}) => {
     const response = await axios.get(routes.dataPath(), options);
-    // const { channels, currentChannelId, messages } = data;
     return response.data;
   },
 );
@@ -45,5 +44,11 @@ const channelsSlice = createSlice({
 });
 
 export const { actions } = channelsSlice;
+
 export const selectors = channelsAdapter.getSelectors((state) => state.channelsReducer);
+
+export const getChannels = (state) => selectors.selectAll(state);
+
+export const getCurrentChannelId = (state) => state.channelsReducer.currentChannelId;
+
 export default channelsSlice.reducer;

@@ -6,8 +6,9 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
-import { closeModal } from '../../store/modalsSlice.js';
-import { getChannels, getModalProps, getModalStatus } from '../../store/selectors.js';
+// import { closeModal } from '../../store/modalsSlice.js';
+import { closeModal, getModalProps, getModalStatus } from '../../store/modalsSlice';
+import { getChannels } from '../../store/channelsSlice.js';
 import useApi from '../../hooks/useApi.js';
 
 const RenameModal = () => {

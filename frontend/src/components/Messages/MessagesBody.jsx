@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import React, { useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-// import { selectors as messagesSelectors } from '../../store/messagesSlice.js';
-import { getCurrentChannelId, getAllMessages } from '../../store/selectors.js';
+import { getCurrentChannelId } from '../../store/channelsSlice.js';
+import { getAllMessages } from '../../store/messagesSlice.js';
 
 const Message = ({
   username,
@@ -21,9 +21,7 @@ const Message = ({
 
 const MessagesBody = () => {
   const scrollForMessages = useRef(null);
-  // const currentChannelId = useSelector((state) => state.channelsReducer.currentChannelId);
   const currentChannelId = useSelector(getCurrentChannelId);
-  // const allMessages = useSelector(messagesSelectors.selectAll);
   const allMessages = useSelector(getAllMessages);
   const channelMessages = allMessages.filter(({ channelId }) => channelId === currentChannelId);
 

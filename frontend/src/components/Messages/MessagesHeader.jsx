@@ -2,9 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-// import { selectors as channelsSelectros } from '../../store/channelsSlice.js';
-// import { selectors as messagesSelectors } from '../../store/messagesSlice.js';
-import { getChannels, getAllMessages, getCurrentChannelId } from '../../store/selectors.js';
+import { getChannels, getCurrentChannelId } from '../../store/channelsSlice.js';
+import { getAllMessages } from '../../store/messagesSlice.js';
 
 const MessagesHeader = () => {
   const { t } = useTranslation();
