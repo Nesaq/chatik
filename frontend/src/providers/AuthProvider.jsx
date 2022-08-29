@@ -1,13 +1,11 @@
 import React, {
-  useState,
+  useState, useMemo,
 } from 'react';
 
 import AuthContext from '../context/authContext.js';
 
 const AuthProvider = ({ children }) => {
   const currentUser = JSON.parse(localStorage.getItem('user'));
-  console.log('currentUser', currentUser);
-  // eslint-disable-next-line max-len
   const [loggedIn, setLoggedIn] = useState(currentUser ? { username: currentUser.username } : null);
 
   const getAuthHeader = () => {
@@ -27,12 +25,12 @@ const AuthProvider = ({ children }) => {
     setLoggedIn(false);
   };
 
+  const value = useMemo(() => ({
+    loggedIn, logIn, logOut, getAuthHeader,
+  }), [loggedIn, logIn, logOut, getAuthHeader]);
+
   return (
-    // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <AuthContext.Provider value={{
-      loggedIn, logIn, logOut, getAuthHeader,
-    }}
-    >
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );

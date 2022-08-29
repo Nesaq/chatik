@@ -10,6 +10,7 @@ import App from './components/App.jsx';
 import store from './store/index.js';
 import ApiProvider from './providers/ApiProvider.jsx';
 import AuthProvider from './providers/AuthProvider.jsx';
+import initSocket from './sockets.js';
 
 const rollbarConfig = {
   accessToken: process.env.REACT_APP_PROCESS_ENV_TOKEN,
@@ -21,6 +22,7 @@ const rollbarConfig = {
 };
 
 export default async (socket) => {
+  const socketAPI = initSocket(socket);
   const i18n = i18next.createInstance();
 
   await i18n
@@ -39,7 +41,7 @@ export default async (socket) => {
     <Provider store={store}>
       <RollbarProvider config={rollbarConfig}>
         <ErrorBoundary>
-          <ApiProvider socket={socket}>
+          <ApiProvider socket={socketAPI}>
             <I18nextProvider i18n={i18n}>
               <AuthProvider>
                 <App />
