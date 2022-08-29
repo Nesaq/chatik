@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-constructed-context-values */
 import React, { useMemo } from 'react';
 import ApiContext from '../context/apiContext';
 

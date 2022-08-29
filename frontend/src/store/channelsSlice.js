@@ -15,6 +15,8 @@ const channelsAdapter = createEntityAdapter();
 const initialState = channelsAdapter.getInitialState({
   currentChannelId: null,
   defaultChannelId: 1,
+  error: null,
+  loading: false,
 });
 
 const channelsSlice = createSlice({
@@ -36,9 +38,19 @@ const channelsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(fetchData.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
       .addCase(fetchData.fulfilled, (state, { payload }) => {
         channelsAdapter.addMany(state, payload.channels);
         state.currentChannelId = payload.currentChannelId;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(fetchData.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error;
       });
   },
 });
@@ -50,5 +62,7 @@ export const selectors = channelsAdapter.getSelectors((state) => state.channelsR
 export const getChannels = (state) => selectors.selectAll(state);
 
 export const getCurrentChannelId = (state) => state.channelsReducer.currentChannelId;
+
+export const getFetchStatus = (state) => state.channelsReducer.loading;
 
 export default channelsSlice.reducer;

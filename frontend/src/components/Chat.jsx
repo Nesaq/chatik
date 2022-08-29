@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Container, Row, Spinner } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
@@ -7,18 +7,17 @@ import useAuth from '../hooks/useAuth.js';
 import Channels from './Channels.jsx';
 import Messages from './Messages/Messages.jsx';
 import ModalsRender from './Modals/ModalsRender.jsx';
-import { fetchData } from '../store/channelsSlice.js';
+import { fetchData, getFetchStatus } from '../store/channelsSlice.js';
 
 const Chat = () => {
   const { t } = useTranslation();
 
   const auth = useAuth();
   const dispatch = useDispatch();
-  const [isSpinnerOn, setSpinnerOn] = useState(true);
+  const isSpinnerOn = useSelector(getFetchStatus);
 
   useEffect(() => {
     dispatch(fetchData({ headers: auth.getAuthHeader() }));
-    setSpinnerOn(false);
   }, [dispatch]);
 
   return isSpinnerOn
