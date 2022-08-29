@@ -16,21 +16,6 @@ import Chat from './Chat.jsx';
 import NavBar from './Nav.jsx';
 import SignupPage from './Registration.jsx';
 
-// eslint-disable-next-line react/prop-types
-// const PrivateRoute = ({ children }) => {
-//   const auth = useAuth();
-//   const location = useLocation();
-
-//   return (
-//     auth.loggedIn ? children : (
-//       <Navigate
-//         state={{ from: location }}
-//         to="/login"
-//       />
-//     )
-//   );
-// // };
-
 const PrivateRoute = ({ children }) => {
   const { loggedIn } = useAuth();
   return (

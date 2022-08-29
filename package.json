@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "[![Actions Status](https://github.com/Nesaq/frontend-project-lvl4/workflows/hexlet-check/badge.svg)](https://github.com/Nesaq/frontend-project-lvl4/actions)",
+  "description": "Project-Chat",
   "main": "index.js",
   "scripts": {
     "build": "npm run build --prefix frontend",

@@ -18,24 +18,24 @@ const SignupPage = () => {
   const auth = useAuth();
   const inputRef = useRef(null);
   const navigate = useNavigate();
-  const [signupFailed, setSignup] = useState(false);
+  const [signupFailed, setSignupFailed] = useState(false);
 
   const schemeForSignUpPage = yup.object().shape({
     username: yup
       .string()
-      .required(t('signup.required'))
+      .required('signup.required')
       .trim()
-      .min(3, t('signup.usernameConstraints'))
-      .max(20, t('signup.usernameConstraints')),
+      .min(3, 'signup.usernameConstraints')
+      .max(20, 'signup.usernameConstraints'),
     password: yup
       .string()
-      .required(t('signup.required'))
+      .required('signup.required')
       .trim()
-      .min(6, t('signup.passMin')),
+      .min(6, 'signup.passMin'),
     confirmPassword: yup
       .string()
       .required(t('signup.required'))
-      .oneOf([yup.ref('password')], t('signup.mustMatch')),
+      .oneOf([yup.ref('password')], 'signup.mustMatch'),
   });
 
   useEffect(() => {
@@ -53,13 +53,11 @@ const SignupPage = () => {
       console.log(values);
       try {
         const response = await axios.post(routes.signupPath(), { username: values.username, password: values.password });
-        console.log(response.data);
-        localStorage.setItem('user', JSON.stringify(response.data));
         auth.logIn(response.data);
         navigate('/');
       } catch (err) {
         if (err.isAxiosError && err.response.status === 409) {
-          setSignup(true);
+          setSignupFailed(true);
           inputRef.current?.select();
         } else {
           toast.error(t('networkError'), {
@@ -113,7 +111,7 @@ const SignupPage = () => {
                     tooltip
                     type="invalid"
                   >
-                    {formik.errors.username}
+                    {formik.errors.username ? t(formik.errors.username) : null}
                   </Form.Control.Feedback>
                 </Form.Group>
 
@@ -136,7 +134,7 @@ const SignupPage = () => {
                     tooltip
                     type="invalid"
                   >
-                    {formik.errors.password}
+                    {formik.errors.password ? t(formik.errors.password) : null}
                   </Form.Control.Feedback>
 
                   <Form.Label htmlFor="password">
@@ -162,7 +160,7 @@ const SignupPage = () => {
                     tooltip
                     type="invalid"
                   >
-                    {signupFailed ? t('signup.alreadyExists') : formik.errors.confirmPassword}
+                    {signupFailed ? t('signup.alreadyExists') : t(formik.errors.confirmPassword)}
                   </Form.Control.Feedback>
 
                   <Form.Label htmlFor="confirmPassword">
