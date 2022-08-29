@@ -2,7 +2,7 @@ env:
   browser: true
   es2021: true
 extends:
-  - airbnb-base # add base for HEROKU Deploy and remove base if u want to see lint correction
+  - airbnb
   - plugin:react/recommended
 overrides: []
 parserOptions:
@@ -11,10 +11,12 @@ parserOptions:
 plugins:
   - react
 rules:
-  import/extensions: 0
+  import/extensions: "off"
   no-console: 0
-  import/no-unresolved: 0
-  no-param-reassign: 0
-  react/prop-types: 0
+  import/no-unresolved: "off"
+  import/no-duplicates: "off"
+  no-param-reassign: "off"
+  react/prop-types: "off"
+  import/no-anonymous-default-export: "off"
   react/jsx-filename-extension: [1, { "extensions": [".js", ".jsx"] }]
   react/function-component-definition: 0
