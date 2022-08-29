@@ -8,8 +8,7 @@ import {
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-import { getChannels, getCurrentChannelId } from '../store/channelsSlice.js';
-import { actions as channelsActions } from '../store/channelsSlice.js';
+import { actions as channelsActions, getChannels, getCurrentChannelId } from '../store/channelsSlice.js';
 import { openModal } from '../store/modalsSlice.js';
 
 const Channels = () => {
