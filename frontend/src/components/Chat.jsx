@@ -18,7 +18,7 @@ const Chat = () => {
 
   useEffect(() => {
     dispatch(fetchData({ headers: auth.getAuthHeader() }));
-  }, [dispatch]);
+  }, [dispatch, auth]);
 
   return isSpinnerOn
     ? (
