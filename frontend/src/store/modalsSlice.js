@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-unused-vars */
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -13,7 +11,6 @@ const modalSlice = createSlice({
   initialState,
   reducers: {
     openModal: (state, { payload }) => {
-      console.log('payload', payload);
       state.type = payload.type;
       state.channelProps = payload.channelProps;
       state.show = payload.show;

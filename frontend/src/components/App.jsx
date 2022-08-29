@@ -4,6 +4,7 @@ import {
   Routes,
   Route,
   Navigate,
+  Outlet,
 } from 'react-router-dom';
 
 import { ToastContainer } from 'react-toastify';
@@ -16,17 +17,13 @@ import Chat from './Chat.jsx';
 import NavBar from './Nav.jsx';
 import SignupPage from './Registration.jsx';
 
-const PrivateRoute = ({ children }) => {
+const PrivateOutlet = ({ chatPage } = false) => {
   const { loggedIn } = useAuth();
-  return (
-    loggedIn ? children : <Navigate to="/login" />
-  );
-};
-const AuthRoute = ({ children }) => {
-  const { loggedIn } = useAuth();
-  return (
-    loggedIn ? <Navigate to="/" /> : children
-  );
+
+  if (chatPage) {
+    return loggedIn ? <Outlet /> : <Navigate to="/login" />;
+  }
+  return loggedIn ? <Navigate to="/" /> : <Outlet />;
 };
 
 const App = () => (
@@ -34,9 +31,15 @@ const App = () => (
     <div className="d-flex flex-column h-100">
       <NavBar />
       <Routes>
-        <Route path="/signup" element={<AuthRoute><SignupPage /></AuthRoute>} />
-        <Route path="/login" element={<AuthRoute><Login /></AuthRoute>} />
-        <Route path="/" element={<PrivateRoute><Chat /></PrivateRoute>} />
+        <Route path="/signup" element={<PrivateOutlet />}>
+          <Route path="" element={<SignupPage />} />
+        </Route>
+        <Route path="/login" element={<PrivateOutlet />}>
+          <Route path="" element={<Login />} />
+        </Route>
+        <Route path="/" element={<PrivateOutlet chatPage />}>
+          <Route path="" element={<Chat />} />
+        </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
