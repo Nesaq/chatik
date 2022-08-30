@@ -30,9 +30,7 @@ const MessagesForm = () => {
     if (response.status === 'ok') {
       console.log(t('messages.networkOkStatus'));
     } else {
-      toast.error(t('networkError'), {
-        position: 'top-right',
-      });
+      toast.error(t('networkError'));
     }
   };
 
