@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { useRef, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { useNavigate, Link } from 'react-router-dom';
@@ -52,7 +51,10 @@ const SignupPage = () => {
     onSubmit: async (values) => {
       console.log(values);
       try {
-        const response = await axios.post(routes.signupPath(), { username: values.username, password: values.password });
+        const response = await axios.post(
+          routes.signupPath(),
+          { username: values.username, password: values.password },
+        );
         auth.logIn(response.data);
         navigate('/');
       } catch (err) {
@@ -144,7 +146,10 @@ const SignupPage = () => {
                   <Form.Control
                     autoComplete="new-password"
                     id="confirmPassword"
-                    isInvalid={(formik.touched.confirmPassword && formik.errors.confirmPassword) || signupFailed}
+                    isInvalid={
+                      (formik.touched.confirmPassword && formik.errors.confirmPassword)
+                      || signupFailed
+                    }
                     name="confirmPassword"
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}

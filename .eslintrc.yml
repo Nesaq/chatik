@@ -1,9 +1,10 @@
 env:
   browser: true
   es2021: true
+  node: true
 extends:
   - airbnb
-  - plugin:react/recommended
+  - 'plugin:react/recommended'
 overrides: []
 parserOptions:
   ecmaVersion: latest
@@ -12,11 +13,11 @@ plugins:
   - react
 rules:
   import/extensions: "off"
-  no-console: 0
   import/no-unresolved: "off"
   import/no-duplicates: "off"
   no-param-reassign: "off"
   react/prop-types: "off"
+  no-console: 0
   import/no-anonymous-default-export: "off"
   react/jsx-filename-extension: [1, { "extensions": [".js", ".jsx"] }]
   react/function-component-definition: 0
