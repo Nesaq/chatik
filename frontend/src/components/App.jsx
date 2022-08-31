@@ -7,7 +7,7 @@ import {
   Outlet,
 } from 'react-router-dom';
 
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import NotFoundPage from './NotFoundPage.jsx';
@@ -46,6 +46,10 @@ const App = () => (
 
     <ToastContainer
       position="top-right"
+      autoClose={2000}
+      limit={2}
+      theme="dark"
+      transition={Zoom}
     />
   </Router>
 );
