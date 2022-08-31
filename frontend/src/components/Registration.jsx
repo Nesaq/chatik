@@ -101,7 +101,9 @@ const SignupPage = () => {
                     ref={inputRef}
                     required
                     value={formik.values.username}
-                    isInvalid={(formik.touched.username && !!formik.errors.username) || signupFailed }
+                    isInvalid={
+                      (formik.touched.username && !!formik.errors.username) || signupFailed
+                    }
                   />
 
                   <Form.Label htmlFor="username">
@@ -122,7 +124,10 @@ const SignupPage = () => {
                     aria-describedby="passwordHelpBlock"
                     autoComplete="new-password"
                     id="password"
-                    isInvalid={(formik.touched.password && formik.errors.password) || signupFailed}
+                    isInvalid={
+                      (formik.touched.password && formik.errors.password)
+                      || signupFailed
+                    }
                     name="password"
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
