@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { getCurrentChannelId } from '../../store/channelsSlice.js';
@@ -31,7 +30,6 @@ const MessagesBody = () => {
     });
   }, [channelMessages]);
 
-  console.log('channelMessages', channelMessages);
   return (
     <div
       className="chat-messages overflow-auto px-5 "
