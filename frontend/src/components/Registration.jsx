@@ -48,6 +48,8 @@ const SignupPage = () => {
       confirmPassword: '',
     },
     validationSchema: schemeForSignUpPage,
+    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: async (values) => {
       console.log(values);
       try {
@@ -92,14 +94,14 @@ const SignupPage = () => {
                   <Form.Control
                     autoComplete="username"
                     id="username"
-                    isInvalid={(formik.touched.username && formik.errors.username) || signupFailed}
                     name="username"
+                    placeholder={t('signup.usernameConstraints')}
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
-                    placeholder={t('signup.usernameConstraints')}
                     ref={inputRef}
                     required
                     value={formik.values.username}
+                    isInvalid={(formik.touched.username && !!formik.errors.username) || signupFailed }
                   />
 
                   <Form.Label htmlFor="username">
