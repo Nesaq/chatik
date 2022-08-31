@@ -48,7 +48,6 @@ const SignupPage = () => {
       confirmPassword: '',
     },
     validationSchema: schemeForSignUpPage,
-    validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
       console.log(values);
