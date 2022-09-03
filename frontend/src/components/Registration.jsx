@@ -50,7 +50,6 @@ const SignupPage = () => {
     validationSchema: schemeForSignUpPage,
     validateOnBlur: false,
     onSubmit: async (values) => {
-      console.log(values);
       try {
         const response = await axios.post(
           routes.signupPath(),
