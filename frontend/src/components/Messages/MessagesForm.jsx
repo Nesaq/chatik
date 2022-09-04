@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import filter from 'leo-profanity';
 import useApi from '../../hooks/useApi.js';
+import useAuth from '../../hooks/useAuth';
 import { getCurrentChannelId } from '../../store/channelsSlice.js';
 
 const validationMessagesForm = yup.object().shape({
@@ -19,11 +20,11 @@ const validationMessagesForm = yup.object().shape({
 
 const MessagesForm = () => {
   const { t } = useTranslation();
-
-  const channelId = useSelector(getCurrentChannelId);
-  const { username } = JSON.parse(localStorage.getItem('user'));
-
+  
   const inputRef = useRef(null);
+  const channelId = useSelector(getCurrentChannelId);
+  const auth = useAuth();
+  const { username } = auth.loggedIn;
   const { addMessage } = useApi();
 
   const responseCheck = (response) => {
