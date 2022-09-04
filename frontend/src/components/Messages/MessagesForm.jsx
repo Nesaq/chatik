@@ -20,7 +20,7 @@ const validationMessagesForm = yup.object().shape({
 
 const MessagesForm = () => {
   const { t } = useTranslation();
-  
+
   const inputRef = useRef(null);
   const channelId = useSelector(getCurrentChannelId);
   const auth = useAuth();
