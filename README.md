@@ -1,13 +1,13 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/Nesaq/frontend-project-lvl4/workflows/hexlet-check/badge.svg)](https://github.com/Nesaq/frontend-project-lvl4/actions)
 
-#Chat
+# Chat
 
 Real time chat-app, analogue (simplified version) of Slack chat.
 
 App DEMO on Heroku: [Heroku Deploy](https://frozen-sierra-97613.herokuapp.com/login)
 
-##How to install
+## How to install
 
 ```
 # 5001 port is required for back - check it before run
@@ -19,7 +19,7 @@ make install
 make start
 ```
 
-###Tools
+### Tools
 
 * React (functional components) + Redux Toolkit
 * [React Router v6](https://reactrouter.com/en/v6.3.0/api)
