@@ -14,5 +14,5 @@ start:
 deploy:
 	git push heroku main
 
-lint-frontend:
-	make -C frontend lint
+lint:
+	npx eslint .
