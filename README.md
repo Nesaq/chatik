@@ -18,7 +18,12 @@ make install
 
 make start
 ```
-
+### Authorization
+```
+Instead of registration you can use
+Login: admin
+Password: admin
+```
 ### Tools
 
 * React (functional components) + Redux Toolkit
